@@ -25,11 +25,11 @@ namespace Fina.Lib.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<users>()
-                .Property(c => c.country)
+                .Property(c => c.Country)
                 .HasConversion<string>();
 
             modelBuilder.Entity<users>()
-                .Property(c => c.currency)
+                .Property(c => c.Currency)
                 .HasConversion<string>();
 
             base.OnModelCreating(modelBuilder);
