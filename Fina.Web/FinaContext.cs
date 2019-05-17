@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    class FinaContext
+    public class FinaContext : DbContext
     {
     }
 }
