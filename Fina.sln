@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fina.Web", "Fina.Web\Fina.Web.csproj", "{72F444A7-2588-4764-BB20-24EFC6F9E62C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fina.Lib", "Fina.Lib\Fina.Lib.csproj", "{B4B4CFF1-1FD8-46C9-BBF1-3909652F3455}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{72F444A7-2588-4764-BB20-24EFC6F9E62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72F444A7-2588-4764-BB20-24EFC6F9E62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72F444A7-2588-4764-BB20-24EFC6F9E62C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B4CFF1-1FD8-46C9-BBF1-3909652F3455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B4CFF1-1FD8-46C9-BBF1-3909652F3455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B4CFF1-1FD8-46C9-BBF1-3909652F3455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B4CFF1-1FD8-46C9-BBF1-3909652F3455}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
