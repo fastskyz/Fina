@@ -21,5 +21,20 @@ namespace Fina.Lib.Database
         public DbSet<single_expense> single_expenses { get; set; }
         public DbSet<incomes> incomes { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<users>()
+                .Property(c => c.country)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<users>()
+                .Property(c => c.currency)
+                .HasConversion<string>();
+
+            base.OnModelCreating(modelBuilder);
+
+        }
+
     }
 }
