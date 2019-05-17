@@ -13,13 +13,13 @@ namespace Fina.Lib.Database
             
         }
 
-        public DbSet<users> users { get; set; }
-        public DbSet<savings> savings { get; set; }
-        public DbSet<jobs> jobs { get; set; }
-        public DbSet<security> security { get; set; }
-        public DbSet<expenses> expenses { get; set; }
-        public DbSet<single_expense> single_expenses { get; set; }
-        public DbSet<incomes> incomes { get; set; }
+        public DbSet<users> tbl_users { get; set; }
+        public DbSet<savings> tbl_savings { get; set; }
+        public DbSet<jobs> tbl_jobs { get; set; }
+        public DbSet<security> tbl_security { get; set; }
+        public DbSet<expenses> tbl_expenses { get; set; }
+        public DbSet<single_expense> tbl_single_expenses { get; set; }
+        public DbSet<incomes> tbl_incomes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
