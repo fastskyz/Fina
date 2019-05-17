@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    class users
+    public class users
     {
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    class single_expense
+    public class single_expense
     {
     }
 }
