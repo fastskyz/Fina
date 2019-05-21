@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Fina.Lib.Database
@@ -8,12 +9,19 @@ namespace Fina.Lib.Database
     {
         public enum savingsType { Travel, Hobby, Childeren, Retirement, Other}
 
+        [Key]
+        [Required]
         public long Id { get; set; }
 
+        [Required]
         public int Amount { get; set; }
+        [Required]
         public bool Longterm { get; set; }
+        [Required]
         public int Monthly { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public savingsType Type { get; set; }
 
         public string Description { get; set; }
