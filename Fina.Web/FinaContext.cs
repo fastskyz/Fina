@@ -49,7 +49,11 @@ namespace Fina.Lib.Database
                 .HasConversion<string>();
 
 
-            //
+            // savings
+
+            modelBuilder.Entity<savings>()
+                .Property(c => c.Type)
+                .HasConversion<string>();
 
             base.OnModelCreating(modelBuilder);
 
