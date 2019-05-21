@@ -9,7 +9,7 @@ namespace Fina.Lib.Database
         public enum Currencies { Euro, Dollar, Pounds, Yen }
         public enum Countries { Belgium, Netherlands, France, Germany, Engeland, USA, Japan}
 
-        public double Id { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
         public string FirstName { get; set; }

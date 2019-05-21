@@ -24,6 +24,8 @@ namespace Fina.Lib.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // users
+
             modelBuilder.Entity<users>()
                 .Property(c => c.Country)
                 .HasConversion<string>();
@@ -31,6 +33,23 @@ namespace Fina.Lib.Database
             modelBuilder.Entity<users>()
                 .Property(c => c.Currency)
                 .HasConversion<string>();
+
+
+            // single expense
+
+            modelBuilder.Entity<single_expense>()
+                .Property(c => c.Type)
+                .HasConversion<string>();
+
+
+            // security
+
+            modelBuilder.Entity<security>()
+                .Property(c => c.Type)
+                .HasConversion<string>();
+
+
+            //
 
             base.OnModelCreating(modelBuilder);
 

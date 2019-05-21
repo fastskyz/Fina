@@ -8,6 +8,8 @@ namespace Fina.Lib.Database
     {
         public enum ExpenseType { Consumables, Rent, Car, Loan, Resources, Service, Sports, Subscription, Other }
 
+        public long Id { get; set; }
+
         public string Name { get; set; }
         public bool Life { get; set; }
         public ExpenseType Type { get; set; }
