@@ -5,14 +5,10 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class single_expense
+    public class single_expense : baseEntityFK<expenses>
     {
         public enum ExpenseType { Consumables, Rent, Car, Loan, Resources, Service, Sports, Subscription, Other }
-
-        [Key]
-        [Required]
-        public long Id { get; set; }
-
+        
         [Required]
         public string Name { get; set; }
         [Required]

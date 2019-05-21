@@ -5,13 +5,9 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class security
+    public class security : baseEntityFK<users>
     {
         public enum secure_type { Guard, Runway }
-
-        [Key]
-        [Required]
-        public long Id { get; set; }
 
         [Required]
         public int Amount { get; set; }

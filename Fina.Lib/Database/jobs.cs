@@ -5,12 +5,8 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class jobs
+    public class jobs : baseEntityFK<incomes>
     {
-        [Key]
-        [Required]
-        public long Id { get; set; }
-
         [Required]
         public int Income { get; set; }
         [Required]
@@ -18,6 +14,7 @@ namespace Fina.Lib.Database
         [Required]
         public int WorkHours { get; set; }
         
+        // optional
         public string Function { get; set; }
         public string Company { get; set; } 
         public DateTime StartDate { get; set; }

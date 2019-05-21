@@ -5,11 +5,8 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class expenses
+    public class expenses : baseEntityFK<users>
     {
-        [Key]
-        [Required]
-        public long Id { get; set; }
 
         [Required]
         public int Total { get; set; }

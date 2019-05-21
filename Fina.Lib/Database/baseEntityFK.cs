@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class incomes : baseEntityFK<users>
-    { 
+    public abstract class baseEntityFK<FKey>
+    {
+        [Key]
         [Required]
-        public int Total { get; set; }
+        public long Id { get; set; }
+
         [Required]
-        public int TotalWorkHours { get; set; }
+        public FKey FK { get; set; }
     }
 }
