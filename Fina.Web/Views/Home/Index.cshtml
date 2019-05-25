@@ -1,36 +1,154 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home";
 }
 
-<div class="hero-full-screen">
 
-    <div class="top-content-section">
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <ul class="menu">
-                    <li class="menu-text"><img src="http://placehold.it/75x30" alt="logo"></li>
-                    <li><a href="#">One</a></li>
-                    <li><a href="#">Two</a></li>
-                    <li><a href="#">Three</a></li>
-                </ul>
+
+<header class="masthead d-flex">
+    <div class="container text-center my-auto">
+        <h1 class="mb-1">FINA</h1>
+        <h3 class="mb-5">
+            <em>A Free Tool To Help Manage Your Finances</em>
+        </h3>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" asp-controller="Users" asp-action="Index">Sign Up</a>
+    </div>
+    <div class="overlay"></div>
+</header>
+
+<section class="content-section bg-light" id="about">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
+                <p class="lead mb-5">
+                    This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
+                    <a href="https://unsplash.com/">Unsplash</a>!
+                </p>
+                <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">What We Offer</a>
             </div>
         </div>
     </div>
+</section>
 
-    <div class="middle-content-section">
-        <h1>Super Compelling Headline</h1>
-        <button class="button large">Button</button>
-        <button class="button large">Button</button>
+<section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+        <div class="content-section-heading">
+            <h3 class="text-secondary mb-0">Services</h3>
+            <h2 class="mb-5">What We Offer</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                <span class="service-icon rounded-circle mx-auto mb-3">
+                    <i class="icon-screen-smartphone"></i>
+                </span>
+                <h4>
+                    <strong>Responsive</strong>
+                </h4>
+                <p class="text-faded mb-0">Looks great on any screen size!</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                <span class="service-icon rounded-circle mx-auto mb-3">
+                    <i class="icon-pencil"></i>
+                </span>
+                <h4>
+                    <strong>Redesigned</strong>
+                </h4>
+                <p class="text-faded mb-0">Freshly redesigned for Bootstrap 4.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                <span class="service-icon rounded-circle mx-auto mb-3">
+                    <i class="icon-like"></i>
+                </span>
+                <h4>
+                    <strong>Favorited</strong>
+                </h4>
+                <p class="text-faded mb-0">
+                    Millions of users
+                    <i class="fas fa-heart"></i>
+                    Start Bootstrap!
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <span class="service-icon rounded-circle mx-auto mb-3">
+                    <i class="icon-mustache"></i>
+                </span>
+                <h4>
+                    <strong>Question</strong>
+                </h4>
+                <p class="text-faded mb-0">I mustache you a question...</p>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div class="bottom-content-section" data-magellan data-threshold="0">
-        <a href="#main-content-section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 12c0-6.627-5.373-12-12-12s-12 5.373-12 12 5.373 12 12 12 12-5.373 12-12zm-18.005-1.568l1.415-1.414 4.59 4.574 4.579-4.574 1.416 1.414-5.995 5.988-6.005-5.988z" /></svg></a>
+
+<!-- Portfolio -->
+<section class="content-section" id="portfolio">
+    <div class="container">
+        <div class="content-section-heading text-center">
+            <h3 class="text-secondary mb-0">Portfolio</h3>
+            <h2 class="mb-5">Recent Projects</h2>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                    <span class="caption">
+                        <span class="caption-content">
+                            <h2>Stationary</h2>
+                            <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
+                        </span>
+                    </span>
+                    <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                    <span class="caption">
+                        <span class="caption-content">
+                            <h2>Ice Cream</h2>
+                            <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
+                        </span>
+                    </span>
+                    <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                    <span class="caption">
+                        <span class="caption-content">
+                            <h2>Strawberries</h2>
+                            <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
+                        </span>
+                    </span>
+                    <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                    <span class="caption">
+                        <span class="caption-content">
+                            <h2>Workspace</h2>
+                            <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
+                        </span>
+                    </span>
+                    <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
+                </a>
+            </div>
+        </div>
     </div>
+</section>
 
-</div>
+<!-- Call to Action -->
+<section class="content-section bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">The buttons below are impossible to resist...</h2>
+        <a href="#" class="btn btn-xl btn-light mr-4">Click Me!</a>
+        <a href="#" class="btn btn-xl btn-dark">Look at Me!</a>
+    </div>
+</section>
 
-<div id="main-content-section" data-magellan-target="main-content-section">
-    <!-- your content goes here -->
-</div>
-
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>

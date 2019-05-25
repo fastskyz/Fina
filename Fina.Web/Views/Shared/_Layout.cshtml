@@ -3,31 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Fina.Web</title>
+    <title>@ViewData["Title"]</title>
+
+
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/styling/main.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="~/styling/scss/main.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/styling/foundation.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <link href="~/styling/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     </environment>
+
+
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/styling/main.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="~/styling/scss/main.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/styling/foundation.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <link href="~/styling/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     </environment>
 </head>
-<body>
-    
+<body id="page-top">
+
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a class="js-scroll-trigger" asp-controller="Home" asp-action="Index" >Fina</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" asp-controller="Home" asp-action="Services">Services</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" asp-controller="Users" asp-action="Index">Log In</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" asp-controller="Users" asp-action="Index">Sign Up</a>
+            </li>
+        </ul>
+    </nav>
+
+
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <!-- Body -->
+    <div class="body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2019 - Fina.Web</p>
+        <footer class="footer text-center">
+            <div class="container">
+                <ul class="list-inline mb-5">
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white mr-3" href="#">
+                            <i class="icon-social-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white mr-3" href="#">
+                            <i class="icon-social-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="social-link rounded-circle text-white" href="#">
+                            <i class="icon-social-github"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text-muted small mb-0">Copyright &copy; Fina 2019</p>
+            </div>
         </footer>
     </div>
 

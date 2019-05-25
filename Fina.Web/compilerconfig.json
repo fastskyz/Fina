@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/styling/main.css",
     "inputFile": "wwwroot/styling/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/styling/scss/main.css",
+    "inputFile": "wwwroot/styling/scss/main.scss"
   }
 ]
