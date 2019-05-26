@@ -55,7 +55,7 @@ namespace Fina.Web.Controllers
         // POST: Sign Up
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp([Bind("Id,Name,FirstName,Country,Password,Age,Currency")] users users)
+        public async Task<IActionResult> SignUp([Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] users users)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,FirstName,Country,Password,Age,Currency")] users users)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] users users)
         {
             if (id != users.Id)
             {
