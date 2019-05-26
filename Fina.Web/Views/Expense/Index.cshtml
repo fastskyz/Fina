@@ -1,71 +1,166 @@
-﻿@model IEnumerable<Fina.Lib.Database.single_expense>
+﻿@model Fina.Web.Models.ExpensesOverviewVm;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Life)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Variable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creditor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Life)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Variable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creditor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h2 class="text-center overview-title">Expenses</h2>
+
+<br />
+
+<div class="container">
+    <ul class="stats-list">
+        <li class="stats-list-positive">
+            135 <span class="stats-list-label">Normal</span>
+        </li>
+        <li>
+            17,678 <span class="stats-list-label">Total</span>
+        </li>
+        <li class="stats-list-negative">
+            2,390 <span class="stats-list-label">Not Needed</span>
+        </li>
+    </ul>
+
+    <table class="table-expand">
+        <thead>
+            <tr class="table-expand-row">
+                <th width="200">Date</th>
+                <th>Number of items</th>
+                <th class="text-right" width="150">Amount</th>
+                <th width="150">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-expand-row" data-open-details>
+                <td>August 15</td>
+                <td>2 items</td>
+                <td class="text-right">$0.50</td>
+                <td>in progress <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>July 15</td>
+                <td>4 items</td>
+                <td class="text-right">$1.30</td>
+                <td>scheduled <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>June 15</td>
+                <td>1 item</td>
+                <td class="text-right">$0.10</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>May 15</td>
+                <td>1 item</td>
+                <td class="text-right">$0.10</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>April 15</td>
+                <td>1 item</td>
+                <td class="text-right">$0.10</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>March 15</td>
+                <td>1 item</td>
+                <td class="text-right">$0.10</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>February 15</td>
+                <td>2 items</td>
+                <td class="text-right">$1.20</td>
+                <td>paid <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>January 15</td>
+                <td>5 items</td>
+                <td class="text-right">$0.50</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+            <tr class="table-expand-row" data-open-details>
+                <td>December 15</td>
+                <td>2 items</td>
+                <td class="text-right">$0.20</td>
+                <td>carried over <span class="expand-icon"></span></td>
+            </tr>
+
+            <tr class="table-expand-row-content">
+                <td colspan="8" class="table-expand-row-nested">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                </td>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+

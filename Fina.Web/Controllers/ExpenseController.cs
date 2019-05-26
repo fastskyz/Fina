@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fina.Lib.Database;
+using Fina.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fina.Web.Controllers
 {
@@ -19,9 +21,15 @@ namespace Fina.Web.Controllers
         }
 
         // GET: Expense
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(long? id)
         {
-            return View(await _context.tbl_single_expenses.ToListAsync());
+            ExpensesOverviewVm expensesOvervieVm = new ExpensesOverviewVm();
+
+            var user = await _context.tbl_users
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+
+            return View();
         }
 
         // GET: Expense/Details/5

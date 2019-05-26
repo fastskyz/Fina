@@ -55,6 +55,7 @@ namespace Fina.Web
 
             app.UseHttpsRedirection();
             app.UseSession();
+            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

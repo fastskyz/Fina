@@ -703,3 +703,86 @@ a:hover, a:focus, a:active {
     -webkit-justify-content: space-around;
     -ms-flex-pack: distribute;
     justify-content: space-around; } }
+
+h2 {
+  margin: 20px !important; }
+
+.stats-list {
+  list-style-type: none;
+  clear: left;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 15px; }
+
+.stats-list .stats-list-positive {
+  color: #3adb76; }
+
+.stats-list .stats-list-negative {
+  color: #cc4b37; }
+
+.stats-list > li {
+  display: inline-block;
+  margin-right: 30px;
+  padding-right: 30px;
+  border-right: 1px solid #cacaca;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold; }
+
+.stats-list > li:last-child {
+  border: none;
+  margin: 0;
+  padding: 0; }
+
+.stats-list > li .stats-list-label {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9em;
+  font-weight: normal; }
+
+.table-expand {
+  margin-top: 5rem; }
+
+.table-expand td {
+  color: #8a8a8a; }
+
+.table-expand tr {
+  border: 1px solid #e6e6e6; }
+
+.table-expand .text-right {
+  padding-right: 3rem; }
+
+.table-expand-row.is-active .expand-icon::after {
+  content: '-'; }
+
+.table-expand-row .expand-icon::after {
+  content: '+';
+  float: right; }
+
+.table-expand-row-content {
+  display: none; }
+
+.table-expand-row-content.is-active {
+  display: table-row;
+  -webkit-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s; }
+
+.table-expand-row-nested {
+  background-color: #e6e6e6; }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }

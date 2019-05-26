@@ -82,3 +82,12 @@ $('.card-profile-stats-more-link').click(function (e) {
     $(this).next('.card-profile-stats-more-content').slideToggle();
 });
 
+
+// Table
+
+$('[data-open-details]').click(function (e) {
+    e.preventDefault();
+    $(this).next().toggleClass('is-active');
+    $(this).toggleClass('is-active');
+});
+
