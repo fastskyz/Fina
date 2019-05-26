@@ -27,6 +27,10 @@ namespace Fina.Lib.Database
             // users
 
             modelBuilder.Entity<users>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<users>()
                 .Property(c => c.Country)
                 .HasConversion<string>();
 

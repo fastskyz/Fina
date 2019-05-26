@@ -44,20 +44,18 @@ namespace Fina.Web.Controllers
             return View(users);
         }
 
-        // GET: Users/Create
-        public IActionResult Create()
+        // GET: SignUp
+        public IActionResult SignUp()
         {
             var user = new SignUpVm();
 
             return View(user);
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Sign Up
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,FirstName,Country,Password,Age,Currency")] users users)
+        public async Task<IActionResult> SignUp([Bind("Id,Name,FirstName,Country,Password,Age,Currency")] users users)
         {
             if (ModelState.IsValid)
             {
