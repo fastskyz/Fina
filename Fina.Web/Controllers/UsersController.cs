@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fina.Lib.Database;
+using Fina.Web.Models;
 
 namespace Fina.Web.Controllers
 {
     public class UsersController : Controller
     {
+
         private readonly FinaContext _context;
 
         public UsersController(FinaContext context)
@@ -45,7 +47,9 @@ namespace Fina.Web.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            return View();
+            var user = new SignUpVm();
+
+            return View(user);
         }
 
         // POST: Users/Create

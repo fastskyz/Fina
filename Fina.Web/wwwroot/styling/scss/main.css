@@ -614,7 +614,7 @@ a:hover, a:focus, a:active {
     font-weight: 600;
     margin-bottom: 1rem; }
   .sign-in-form input {
-    color: white; }
+    color: black; }
   .sign-in-form input:focus {
     opacity: .8; }
 
@@ -625,9 +625,9 @@ a:hover, a:focus, a:active {
   transition: all ease .4s; }
 
 .sign-in-form-button {
-  border-radius: 30px;
   border: 1px solid #fff;
-  color: #fff;
+  border-radius: 35px !important;
+  color: #fff !important;
   background-color: transparent;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -636,4 +636,8 @@ a:hover, a:focus, a:active {
   transition: all ease .4s; }
   .sign-in-form-button:hover {
     background-color: #44c8ed;
-    border-color: #44c8ed; }
+    border-color: #44c8ed;
+    color: #000 !important; }
+
+.simple-center-block {
+  padding: 100px 0px 10% 0px; }
