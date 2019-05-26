@@ -30,9 +30,9 @@ namespace Fina.Lib.Database
         public Currencies Currency { get; set; }
 
 
-        public IEnumerable<savings> Savings { get; set; }
-        public IEnumerable<incomes> Income { get; set; }
-        public IEnumerable<expenses> Expense { get; set; }
-        public IEnumerable<security> Securities { get; set; }
+        public ICollection<savings> Savings { get; set; }
+        public incomes Income { get; set; }
+        public expenses Expenses { get; set; }
+        public ICollection<security> Securities { get; set; }
     }
 }

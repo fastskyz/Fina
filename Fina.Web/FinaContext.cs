@@ -37,6 +37,7 @@ namespace Fina.Lib.Database
             modelBuilder.Entity<users>()
                 .Property(c => c.Currency)
                 .HasConversion<string>();
+            
 
 
             // single expense

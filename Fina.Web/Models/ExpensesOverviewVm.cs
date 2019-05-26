@@ -8,7 +8,7 @@ namespace Fina.Web.Models
 {
     public class ExpensesOverviewVm
     {
-        public IEnumerable<single_expense> Expenses { get; set; }
+        public List<single_expense> Expenses { get; set; }
 
         public int Total {
             get { return Total; }

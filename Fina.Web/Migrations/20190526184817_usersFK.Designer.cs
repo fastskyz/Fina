@@ -4,14 +4,16 @@ using Fina.Lib.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fina.Web.Migrations
 {
     [DbContext(typeof(FinaContext))]
-    partial class FinaContextModelSnapshot : ModelSnapshot
+    [Migration("20190526184817_usersFK")]
+    partial class usersFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +27,15 @@ namespace Fina.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("FKId");
+
                     b.Property<int>("LifeFunds");
 
                     b.Property<int>("Total");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FKId");
 
                     b.ToTable("tbl_expenses");
                 });
@@ -40,11 +46,15 @@ namespace Fina.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("FKId");
+
                     b.Property<int>("Total");
 
                     b.Property<int>("TotalWorkHours");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FKId");
 
                     b.ToTable("tbl_incomes");
                 });
@@ -187,12 +197,8 @@ namespace Fina.Web.Migrations
                     b.Property<string>("Email")
                         .IsRequired();
 
-                    b.Property<long?>("ExpensesId");
-
                     b.Property<string>("FirstName")
                         .IsRequired();
-
-                    b.Property<long?>("IncomeId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -205,17 +211,29 @@ namespace Fina.Web.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("ExpensesId");
-
-                    b.HasIndex("IncomeId");
-
                     b.ToTable("tbl_users");
+                });
+
+            modelBuilder.Entity("Fina.Lib.Database.expenses", b =>
+                {
+                    b.HasOne("Fina.Lib.Database.users", "FK")
+                        .WithMany("Expense")
+                        .HasForeignKey("FKId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fina.Lib.Database.incomes", b =>
+                {
+                    b.HasOne("Fina.Lib.Database.users", "FK")
+                        .WithMany("Income")
+                        .HasForeignKey("FKId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Fina.Lib.Database.jobs", b =>
                 {
                     b.HasOne("Fina.Lib.Database.incomes", "FK")
-                        .WithMany("Jobs")
+                        .WithMany()
                         .HasForeignKey("FKId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -239,20 +257,9 @@ namespace Fina.Web.Migrations
             modelBuilder.Entity("Fina.Lib.Database.single_expense", b =>
                 {
                     b.HasOne("Fina.Lib.Database.expenses", "FK")
-                        .WithMany("Singles")
+                        .WithMany()
                         .HasForeignKey("FKId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fina.Lib.Database.users", b =>
-                {
-                    b.HasOne("Fina.Lib.Database.expenses", "Expenses")
-                        .WithMany()
-                        .HasForeignKey("ExpensesId");
-
-                    b.HasOne("Fina.Lib.Database.incomes", "Income")
-                        .WithMany()
-                        .HasForeignKey("IncomeId");
                 });
 #pragma warning restore 612, 618
         }

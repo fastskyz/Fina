@@ -21,15 +21,20 @@ namespace Fina.Web.Controllers
         }
 
         // GET: Expense
-        public async Task<IActionResult> Index(long? id)
+        public async Task<IActionResult> Index()
         {
-            ExpensesOverviewVm expensesOvervieVm = new ExpensesOverviewVm();
+            long id = 1;
 
             var user = await _context.tbl_users
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+            var Expenses = user.Expenses.Singles.ToList();
+            ExpensesOverviewVm expensesOverviewVm = new ExpensesOverviewVm();
+            expensesOverviewVm.Expenses = Expenses;
 
-            return View();
+
+
+            return View(expensesOverviewVm);
         }
 
         // GET: Expense/Details/5
