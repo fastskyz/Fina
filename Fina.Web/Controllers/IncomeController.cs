@@ -21,7 +21,7 @@ namespace Fina.Web.Controllers
         // GET: Income
         public async Task<IActionResult> Index()
         {
-            return View(await _context.tbl_incomes.ToListAsync());
+            return View(await _context.tbl_jobs.ToListAsync());
         }
 
         // GET: Income/Details/5
@@ -32,14 +32,14 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var incomes = await _context.tbl_incomes
+            var jobs = await _context.tbl_jobs
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (incomes == null)
+            if (jobs == null)
             {
                 return NotFound();
             }
 
-            return View(incomes);
+            return View(jobs);
         }
 
         // GET: Income/Create
@@ -53,15 +53,15 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Total,TotalWorkHours,Id")] incomes incomes)
+        public async Task<IActionResult> Create([Bind("Income,Variable,WorkHours,Function,Company,StartDate,Id")] jobs jobs)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(incomes);
+                _context.Add(jobs);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(incomes);
+            return View(jobs);
         }
 
         // GET: Income/Edit/5
@@ -72,12 +72,12 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var incomes = await _context.tbl_incomes.FindAsync(id);
-            if (incomes == null)
+            var jobs = await _context.tbl_jobs.FindAsync(id);
+            if (jobs == null)
             {
                 return NotFound();
             }
-            return View(incomes);
+            return View(jobs);
         }
 
         // POST: Income/Edit/5
@@ -85,9 +85,9 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Total,TotalWorkHours,Id")] incomes incomes)
+        public async Task<IActionResult> Edit(long id, [Bind("Income,Variable,WorkHours,Function,Company,StartDate,Id")] jobs jobs)
         {
-            if (id != incomes.Id)
+            if (id != jobs.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace Fina.Web.Controllers
             {
                 try
                 {
-                    _context.Update(incomes);
+                    _context.Update(jobs);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!incomesExists(incomes.Id))
+                    if (!jobsExists(jobs.Id))
                     {
                         return NotFound();
                     }
@@ -112,7 +112,7 @@ namespace Fina.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(incomes);
+            return View(jobs);
         }
 
         // GET: Income/Delete/5
@@ -123,14 +123,14 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var incomes = await _context.tbl_incomes
+            var jobs = await _context.tbl_jobs
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (incomes == null)
+            if (jobs == null)
             {
                 return NotFound();
             }
 
-            return View(incomes);
+            return View(jobs);
         }
 
         // POST: Income/Delete/5
@@ -138,15 +138,15 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var incomes = await _context.tbl_incomes.FindAsync(id);
-            _context.tbl_incomes.Remove(incomes);
+            var jobs = await _context.tbl_jobs.FindAsync(id);
+            _context.tbl_jobs.Remove(jobs);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool incomesExists(long id)
+        private bool jobsExists(long id)
         {
-            return _context.tbl_incomes.Any(e => e.Id == id);
+            return _context.tbl_jobs.Any(e => e.Id == id);
         }
     }
 }

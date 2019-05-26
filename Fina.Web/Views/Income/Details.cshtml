@@ -1,4 +1,4 @@
-﻿@model Fina.Lib.Database.incomes
+﻿@model Fina.Lib.Database.jobs
 
 @{
     ViewData["Title"] = "Details";
@@ -7,20 +7,44 @@
 <h2>Details</h2>
 
 <div>
-    <h4>incomes</h4>
+    <h4>jobs</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Total)
+            @Html.DisplayNameFor(model => model.Income)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Total)
+            @Html.DisplayFor(model => model.Income)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TotalWorkHours)
+            @Html.DisplayNameFor(model => model.Variable)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TotalWorkHours)
+            @Html.DisplayFor(model => model.Variable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Function)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Function)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
         </dd>
     </dl>
 </div>

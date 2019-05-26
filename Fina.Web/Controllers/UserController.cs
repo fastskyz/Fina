@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Security;
 using Fina.Lib.Database;
 using Fina.Web.Models;
 
 namespace Fina.Web.Controllers
 {
-    public class UsersController : Controller
+    public class UserController : Controller
     {
 
         private readonly FinaContext _context;
 
-        public UsersController(FinaContext context)
+        public UserController(FinaContext context)
         {
             _context = context;
         }
@@ -34,15 +36,47 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var users = await _context.tbl_users
+            var user = await _context.tbl_users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (users == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(users);
+            DetailsVm detailsVm = new DetailsVm();
+
+            detailsVm.user = user;
+
+            return View(detailsVm);
         }
+
+
+        // GET: Login
+        public IActionResult Login()
+        {
+            var user = new LoginVm();
+
+            return View(user);
+        }
+
+        // POST: Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("Email,Password")] LoginVm details)
+        {
+            SHA256 newSHA256 = SHA256.Create(details.Password);
+
+            users user = _context.tbl_users.Where(u => u.Email == details.Email).First();
+            
+            if ( newSHA256.ToString() == user.Password )
+            {
+                // do something
+            }
+
+            return View();
+        }
+
+
 
         // GET: SignUp
         public IActionResult SignUp()

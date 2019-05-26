@@ -1,4 +1,4 @@
-﻿@model Fina.Lib.Database.expenses
+﻿@model Fina.Lib.Database.single_expense
 
 @{
     ViewData["Title"] = "Details";
@@ -7,20 +7,50 @@
 <h2>Details</h2>
 
 <div>
-    <h4>expenses</h4>
+    <h4>single_expense</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Total)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Total)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LifeFunds)
+            @Html.DisplayNameFor(model => model.Life)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LifeFunds)
+            @Html.DisplayFor(model => model.Life)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Variable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Variable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Creditor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Creditor)
         </dd>
     </dl>
 </div>

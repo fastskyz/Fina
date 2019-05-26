@@ -1,4 +1,4 @@
-﻿@model Fina.Web.Models.SignUpVm;
+﻿@model Fina.Web.Models.LoginVm;
 
 @{
     ViewData["Title"] = "Login";
@@ -23,7 +23,7 @@
                         <input asp-for="Password" type="password" class="sign-in-form-field" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
-                    
+                    <br />
                     <div class="form-group">
                         <input type="submit" value="Create" class="sign-in-form-button" />
                     </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fina.Lib.Database.incomes>
+﻿@model IEnumerable<Fina.Lib.Database.jobs>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
+                @Html.DisplayNameFor(model => model.Income)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalWorkHours)
+                @Html.DisplayNameFor(model => model.Variable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Function)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th></th>
         </tr>
@@ -25,10 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Total)
+                @Html.DisplayFor(modelItem => item.Income)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalWorkHours)
+                @Html.DisplayFor(modelItem => item.Variable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Function)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

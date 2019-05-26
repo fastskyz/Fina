@@ -9,22 +9,22 @@ using Fina.Lib.Database;
 
 namespace Fina.Web.Controllers
 {
-    public class ExpenseController : Controller
+    public class SecurityController : Controller
     {
         private readonly FinaContext _context;
 
-        public ExpenseController(FinaContext context)
+        public SecurityController(FinaContext context)
         {
             _context = context;
         }
 
-        // GET: Expense
+        // GET: Security
         public async Task<IActionResult> Index()
         {
-            return View(await _context.tbl_single_expenses.ToListAsync());
+            return View(await _context.tbl_security.ToListAsync());
         }
 
-        // GET: Expense/Details/5
+        // GET: Security/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var single_expense = await _context.tbl_single_expenses
+            var security = await _context.tbl_security
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (single_expense == null)
+            if (security == null)
             {
                 return NotFound();
             }
 
-            return View(single_expense);
+            return View(security);
         }
 
-        // GET: Expense/Create
+        // GET: Security/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Expense/Create
+        // POST: Security/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,Id")] single_expense single_expense)
+        public async Task<IActionResult> Create([Bind("Amount,Type,Monthly,StartDate,Description,AccountNumber,Id")] security security)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(single_expense);
+                _context.Add(security);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(single_expense);
+            return View(security);
         }
 
-        // GET: Expense/Edit/5
+        // GET: Security/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var single_expense = await _context.tbl_single_expenses.FindAsync(id);
-            if (single_expense == null)
+            var security = await _context.tbl_security.FindAsync(id);
+            if (security == null)
             {
                 return NotFound();
             }
-            return View(single_expense);
+            return View(security);
         }
 
-        // POST: Expense/Edit/5
+        // POST: Security/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,Id")] single_expense single_expense)
+        public async Task<IActionResult> Edit(long id, [Bind("Amount,Type,Monthly,StartDate,Description,AccountNumber,Id")] security security)
         {
-            if (id != single_expense.Id)
+            if (id != security.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace Fina.Web.Controllers
             {
                 try
                 {
-                    _context.Update(single_expense);
+                    _context.Update(security);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!single_expenseExists(single_expense.Id))
+                    if (!securityExists(security.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace Fina.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(single_expense);
+            return View(security);
         }
 
-        // GET: Expense/Delete/5
+        // GET: Security/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var single_expense = await _context.tbl_single_expenses
+            var security = await _context.tbl_security
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (single_expense == null)
+            if (security == null)
             {
                 return NotFound();
             }
 
-            return View(single_expense);
+            return View(security);
         }
 
-        // POST: Expense/Delete/5
+        // POST: Security/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var single_expense = await _context.tbl_single_expenses.FindAsync(id);
-            _context.tbl_single_expenses.Remove(single_expense);
+            var security = await _context.tbl_security.FindAsync(id);
+            _context.tbl_security.Remove(security);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool single_expenseExists(long id)
+        private bool securityExists(long id)
         {
-            return _context.tbl_single_expenses.Any(e => e.Id == id);
+            return _context.tbl_security.Any(e => e.Id == id);
         }
     }
 }

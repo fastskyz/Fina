@@ -35,6 +35,8 @@ namespace Fina.Web
 
             services.AddDbContext<FinaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FinaDev")));
 
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -52,6 +54,7 @@ namespace Fina.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
