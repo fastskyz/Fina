@@ -28,5 +28,11 @@ namespace Fina.Lib.Database
         public byte Age { get; set; }
         [Required]
         public Currencies Currency { get; set; }
+
+
+        public IEnumerable<savings> Savings { get; set; }
+        public IEnumerable<incomes> Income { get; set; }
+        public IEnumerable<expenses> Expense { get; set; }
+        public IEnumerable<security> Securities { get; set; }
     }
 }
