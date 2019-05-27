@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class security : baseEntityFK<users>
+    public class security
     {
+        [Key]
+        [Required]
+        public long Id { get; set; }
+
+        [Required]
+        [ForeignKey("users")]
+        public users FK { get; set; }
+
         public enum secure_type { Guard, Runway }
 
         [Required]

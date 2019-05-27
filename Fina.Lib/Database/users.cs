@@ -31,8 +31,8 @@ namespace Fina.Lib.Database
 
 
         public ICollection<savings> Savings { get; set; }
-        public incomes Income { get; set; }
-        public expenses Expenses { get; set; }
+        public incomes Positive { get; set; }
+        public expenses Negative { get; set; }
         public ICollection<security> Securities { get; set; }
     }
 }
