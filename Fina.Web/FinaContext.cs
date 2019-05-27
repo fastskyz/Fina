@@ -16,7 +16,7 @@ namespace Fina.Lib.Database
         public DbSet<users> tbl_users { get; set; }
         public DbSet<savings> tbl_savings { get; set; }
         public DbSet<jobs> tbl_jobs { get; set; }
-        public DbSet<security> tbl_security { get; set; }
+        public DbSet<Security> tbl_security { get; set; }
         public DbSet<expenses> tbl_expenses { get; set; }
         public DbSet<single_expense> tbl_single_expenses { get; set; }
         public DbSet<incomes> tbl_incomes { get; set; }
@@ -49,7 +49,7 @@ namespace Fina.Lib.Database
 
             // security
 
-            modelBuilder.Entity<security>()
+            modelBuilder.Entity<Security>()
                 .Property(c => c.Type)
                 .HasConversion<string>();
 

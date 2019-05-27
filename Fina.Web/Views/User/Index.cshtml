@@ -1,65 +1,56 @@
-﻿@model IEnumerable<Fina.Lib.Database.users>
+﻿@model Fina.Web.Models.DetailsVm;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
 }
 
-<h2>Index</h2>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="card-profile-stats col-lg-6">
+            <div class="card-profile-stats-intro">
+                <img class="card-profile-stats-intro-pic" src="https://pbs.twimg.com/profile_images/732634911761260544/OxHbNdTF.jpg" alt="profile-image" />
+                <div class="card-profile-stats-intro-content">
+                    <h3 class="">@Model.user.FirstName @Model.user.Name</h3>
+                    <p class="text-center"><a class="fas fa-crown"></a> Premium User <a class="fas fa-crown"></a></p>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="card-profile-stats-container">
+                <div class="card-profile-stats-statistic">
+                    <h4>Income:</h4>
+                    <span class="stat">@Model.positive.Total</span>
+                </div>
+                <div class="card-profile-stats-statistic">
+                    <h4>Expenses:</h4>
+                    <span class="stat">@Model.negative.Total</span>
+                </div>
+                <div class="card-profile-stats-statistic">
+                    <h4>Remaining:</h4>
+                    <span class="stat">@{ (Model.positive.Total - Model.negative.Total).ToString(); }</span>
+                </div>
+            </div>
+
+            <div class="card-profile-stats-more">
+                <p class="card-profile-stats-more-link"><a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a></p>
+                <div class="card-profile-stats-more-content">
+                    <ul class="list-group">
+                        <li class="list-group-item active">Personal Information</li>
+                        <li class="list-group-item">@Model.user.FirstName @Model.user.Name</li>
+                        <li class="list-group-item">Age: @Model.user.Age</li>
+                        <li class="list-group-item">@Model.user.Country / @Model.user.Currency</li>
+                        <li class="list-group-item">@Model.user.Email</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+
+        </div>
+    </div>
+
+</div>

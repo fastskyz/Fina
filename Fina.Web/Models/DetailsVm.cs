@@ -10,5 +10,7 @@ namespace Fina.Web.Models
     public class DetailsVm
     {
         public users user { get; set; }
+        public expenses negative { get; set; }
+        public incomes positive { get; set; }
     }
 }

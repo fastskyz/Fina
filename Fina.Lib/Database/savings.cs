@@ -6,16 +6,8 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class savings
+    public class Savings : baseEntity<User>
     {
-        [Key]
-        [Required]
-        public long Id { get; set; }
-
-        [Required]
-        [ForeignKey("users")]
-        public users FK { get; set; }
-
         public enum savingsType { Travel, Hobby, Childeren, Retirement, Other}
 
         [Required]

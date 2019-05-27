@@ -22,4 +22,11 @@
     <ProjectReference Include="..\Fina.Lib\Fina.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Expenses\Index.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

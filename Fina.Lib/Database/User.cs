@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class users
+    public class User
     { 
         public enum Currencies { Euro, Dollar, Pounds, Yen }
         public enum Countries { Belgium, Netherlands, France, Germany, Engeland, USA, Japan}
@@ -30,9 +30,20 @@ namespace Fina.Lib.Database
         public Currencies Currency { get; set; }
 
 
-        public ICollection<savings> Savings { get; set; }
-        public incomes Positive { get; set; }
-        public expenses Negative { get; set; }
-        public ICollection<security> Securities { get; set; }
+
+        [Required]
+        public int Total { get; set; }
+        [Required]
+        public int LifeFunds { get; set; }
+        [Required]
+        public int Positive { get; set; }
+        [Required]
+        public int Negative { get; set; }
+
+
+        public ICollection<Savings> Savings { get; set; }
+        public ICollection<Security> Securities { get; set; }
+        public ICollection<Security> Expenses { get; set; }
+        public ICollection<Security> Incomes { get; set; }
     }
 }

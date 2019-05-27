@@ -6,21 +6,22 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class expenses
+    public class Expenses : baseEntity<User>
     {
-        [Key]
-        [Required]
-        public long Id { get; set; }
+        public enum ExpenseType { Consumables, Rent, Car, Loan, Resources, Service, Sports, Subscription, Other }
 
         [Required]
-        [ForeignKey("users")]
-        public users FK { get; set; }
-
+        public string Name { get; set; }
         [Required]
-        public int Total { get; set; }
+        public bool Life { get; set; }
         [Required]
-        public int LifeFunds { get; set; }
+        public ExpenseType Type { get; set; }
+        [Required]
+        public bool Variable { get; set; }
+        [Required]
+        public decimal Cost { get; set; }
 
-        public ICollection<single_expense> Singles { get; set; }
+        public string AccountNumber { get; set; }
+        public string Creditor { get; set; }
     }
 }

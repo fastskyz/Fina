@@ -6,14 +6,14 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public abstract class baseEntityFK<FKey>
+    public abstract class baseEntity<FKey>
     {
         [Key]
         [Required]
         public long Id { get; set; }
 
         [Required]
-        [ForeignKey("users")]
+        [ForeignKey("User")]
         public FKey FK { get; set; }
     }
 }

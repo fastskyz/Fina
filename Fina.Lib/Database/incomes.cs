@@ -6,22 +6,18 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class incomes
+    public class Incomes : baseEntity<User>
     {
-        [Key]
         [Required]
-        public long Id { get; set; }
-
+        public int Amount { get; set; }
         [Required]
-        [ForeignKey("users")]
-        public users FK { get; set; }
-
-
+        public bool Variable { get; set; }
         [Required]
-        public int Total { get; set; }
-        [Required]
-        public int TotalWorkHours { get; set; }
+        public int WorkHours { get; set; }
 
-        public ICollection<jobs> Jobs { get; set; }
+        // optional
+        public string Function { get; set; }
+        public string Company { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }
