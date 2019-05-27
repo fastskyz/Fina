@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class Expenses : baseEntity<User>
+    public class Expense : baseEntity<User>
     {
         public enum ExpenseType { Consumables, Rent, Car, Loan, Resources, Service, Sports, Subscription, Other }
 

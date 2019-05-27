@@ -10,26 +10,22 @@ using Fina.Web.Models;
 
 namespace Fina.Web.Controllers
 {
-    public class ExpensesController : Controller
+    public class ExpenseController : Controller
     {
         private readonly FinaContext _context;
 
-        public ExpensesController(FinaContext context)
+        public ExpenseController(FinaContext context)
         {
             _context = context;
         }
 
-        // GET: Expenses
-        public async Task<IActionResult> Index(long? id)
+        // GET: Expense
+        public async Task<IActionResult> Index()
         {
-            return NotFound();
+            return View(await _context.tbl_expenses.ToListAsync());
         }
 
-
-
-
-
-        // GET: Expenses/Details/5
+        // GET: Expense/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -37,45 +33,56 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var user = await _context.tbl_users.Where(u => u.Id == 1).FirstOrDefaultAsync();
-            if (user.Negative == null)
+            var expense = await _context.tbl_expenses
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (expense == null)
             {
                 return NotFound();
             }
-            var all_expenses = user.Negative.Singles.AsEnumerable();
 
-            ExpensesOverviewVm expensesOverviewVm = new ExpensesOverviewVm();
-            expensesOverviewVm.Expenses = all_expenses;
-
-            return View(expensesOverviewVm);
+            return View(expense);
         }
 
-
-
-
-        // GET: Expenses/Create
-        public IActionResult Create()
+        // GET: Expense/Add
+        public IActionResult Add()
         {
-            return View();
+            ExpenseAddVm expenseAddVm = new ExpenseAddVm();
+
+            return View(expenseAddVm);
         }
 
-        // POST: Expenses/Create
+        // POST: Expense/Add
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // ModelState.IsValid
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Total,LifeFunds")] expenses expenses)
+        public async Task<IActionResult> Add([Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] ExpenseAddVm expenseVm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(expenses);
+                var fk = await _context.tbl_users.Where(u => u.Id == 1).FirstAsync();
+
+                Expense newExpense = new Expense {
+                    FK = fk,
+                    Name = expenseVm.Name,
+                    AccountNumber = expenseVm.AccountNumber,
+                    Life = expenseVm.Life,
+                    Type = expenseVm.Type,
+                    Variable = expenseVm.Variable,
+                    Cost = expenseVm.Cost,
+                    Creditor = expenseVm.Creditor
+                };
+
+                _context.Add(newExpense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenses);
+            return View(expenseVm);
         }
 
-        // GET: Expenses/Edit/5
+        // GET: Expense/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -83,22 +90,22 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var expenses = await _context.tbl_expenses.FindAsync(id);
-            if (expenses == null)
+            var expense = await _context.tbl_expenses.FindAsync(id);
+            if (expense == null)
             {
                 return NotFound();
             }
-            return View(expenses);
+            return View(expense);
         }
 
-        // POST: Expenses/Edit/5
+        // POST: Expense/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Total,LifeFunds")] expenses expenses)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,Id")] Expense expense)
         {
-            if (id != expenses.Id)
+            if (id != expense.Id)
             {
                 return NotFound();
             }
@@ -107,12 +114,12 @@ namespace Fina.Web.Controllers
             {
                 try
                 {
-                    _context.Update(expenses);
+                    _context.Update(expense);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!expensesExists(expenses.Id))
+                    if (!ExpenseExists(expense.Id))
                     {
                         return NotFound();
                     }
@@ -123,10 +130,10 @@ namespace Fina.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenses);
+            return View(expense);
         }
 
-        // GET: Expenses/Delete/5
+        // GET: Expense/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -134,28 +141,28 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var expenses = await _context.tbl_expenses
+            var expense = await _context.tbl_expenses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (expenses == null)
+            if (expense == null)
             {
                 return NotFound();
             }
 
-            return View(expenses);
+            return View(expense);
         }
 
-        // POST: Expenses/Delete/5
+        // POST: Expense/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expenses = await _context.tbl_expenses.FindAsync(id);
-            _context.tbl_expenses.Remove(expenses);
+            var expense = await _context.tbl_expenses.FindAsync(id);
+            _context.tbl_expenses.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool expensesExists(long id)
+        private bool ExpenseExists(long id)
         {
             return _context.tbl_expenses.Any(e => e.Id == id);
         }

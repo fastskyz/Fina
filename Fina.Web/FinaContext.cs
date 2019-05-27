@@ -13,28 +13,26 @@ namespace Fina.Lib.Database
             
         }
 
-        public DbSet<users> tbl_users { get; set; }
-        public DbSet<savings> tbl_savings { get; set; }
-        public DbSet<jobs> tbl_jobs { get; set; }
+        public DbSet<User> tbl_users { get; set; }
+        public DbSet<Saving> tbl_savings { get; set; }
         public DbSet<Security> tbl_security { get; set; }
-        public DbSet<expenses> tbl_expenses { get; set; }
-        public DbSet<single_expense> tbl_single_expenses { get; set; }
-        public DbSet<incomes> tbl_incomes { get; set; }
+        public DbSet<Expense> tbl_expenses { get; set; }
+        public DbSet<Income> tbl_incomes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // users
+            // User
 
-            modelBuilder.Entity<users>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
-            modelBuilder.Entity<users>()
+            modelBuilder.Entity<User>()
                 .Property(c => c.Country)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<users>()
+            modelBuilder.Entity<User>()
                 .Property(c => c.Currency)
                 .HasConversion<string>();
             
@@ -42,7 +40,7 @@ namespace Fina.Lib.Database
 
             // single expense
 
-            modelBuilder.Entity<single_expense>()
+            modelBuilder.Entity<Expense>()
                 .Property(c => c.Type)
                 .HasConversion<string>();
 
@@ -56,7 +54,7 @@ namespace Fina.Lib.Database
 
             // savings
 
-            modelBuilder.Entity<savings>()
+            modelBuilder.Entity<Saving>()
                 .Property(c => c.Type)
                 .HasConversion<string>();
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class Incomes : baseEntity<User>
+    public class Income : baseEntity<User>
     {
         [Required]
         public int Amount { get; set; }

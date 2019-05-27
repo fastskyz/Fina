@@ -41,9 +41,9 @@ namespace Fina.Lib.Database
         public int Negative { get; set; }
 
 
-        public ICollection<Savings> Savings { get; set; }
+        public ICollection<Saving> Savings { get; set; }
         public ICollection<Security> Securities { get; set; }
-        public ICollection<Security> Expenses { get; set; }
-        public ICollection<Security> Incomes { get; set; }
+        public ICollection<Expense> Expenses { get; set; }
+        public ICollection<Income> Incomes { get; set; }
     }
 }

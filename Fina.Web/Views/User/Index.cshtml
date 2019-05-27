@@ -22,15 +22,15 @@
             <div class="card-profile-stats-container">
                 <div class="card-profile-stats-statistic">
                     <h4>Income:</h4>
-                    <span class="stat">@Model.positive.Total</span>
+                    <span class="stat">1258</span>
                 </div>
                 <div class="card-profile-stats-statistic">
                     <h4>Expenses:</h4>
-                    <span class="stat">@Model.negative.Total</span>
+                    <span class="stat">500</span>
                 </div>
                 <div class="card-profile-stats-statistic">
                     <h4>Remaining:</h4>
-                    <span class="stat">@{ (Model.positive.Total - Model.negative.Total).ToString(); }</span>
+                    <span class="stat">5411</span>
                 </div>
             </div>
 
@@ -48,8 +48,12 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
-
+        <div class="card-profile-stats col-lg-6 text-center">
+            <h3>ADD DATA</h3>
+            <div class="button-group-option">
+                <a asp-controller="Expense" asp-action="Add" class="button success radius">Add Expense</a>
+                <a asp-controller="Income" asp-action="Add" class="button primary radius">Add Income</a>
+            </div>
         </div>
     </div>
 

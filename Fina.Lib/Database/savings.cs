@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Fina.Lib.Database
 {
-    public class Savings : baseEntity<User>
+    public class Saving : baseEntity<User>
     {
         public enum savingsType { Travel, Hobby, Childeren, Retirement, Other}
 

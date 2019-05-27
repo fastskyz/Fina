@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 using System.Security;
 using Fina.Lib.Database;
 using Fina.Web.Models;
@@ -23,8 +22,10 @@ namespace Fina.Web.Controllers
         }
 
         // GET: User
-        public async Task<IActionResult> Index(long? id)
+        public async Task<IActionResult> Index()
         {
+            long id = 1;
+
             if (id == null)
             {
                 return NotFound();
@@ -40,8 +41,6 @@ namespace Fina.Web.Controllers
             DetailsVm detailsVm = new DetailsVm();
 
             detailsVm.user = user;
-            detailsVm.negative = user.Negative;
-            detailsVm.positive = user.Positive;
 
             return View(detailsVm);
         }
@@ -74,14 +73,8 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Email,Password")] LoginVm details)
         {
-            SHA256 newSHA256 = SHA256.Create(details.Password);
 
-            users user = _context.tbl_users.Where(u => u.Email == details.Email).First();
-            
-            if ( newSHA256.ToString() == user.Password )
-            {
-                // do something
-            }
+            User user = _context.tbl_users.Where(u => u.Email == details.Email).First();
 
             return View();
         }
@@ -112,24 +105,16 @@ namespace Fina.Web.Controllers
         // POST: Sign Up
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp([Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] users User)
+        public async Task<IActionResult> SignUp([Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] User user)
         {
             if (ModelState.IsValid)
             {
-                expenses Negative = new expenses();
-                Negative.FK = User;
-
-                incomes Positive = new incomes();
-                Positive.FK = User;
-
-                _context.Add(User);
-                _context.Add(Negative);
-                _context.Add(Positive);
+                _context.Add(user);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(User);
+            return View(user);
         }
 
 
@@ -168,7 +153,7 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] users User)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] User User)
         {
             if (id != User.Id)
             {

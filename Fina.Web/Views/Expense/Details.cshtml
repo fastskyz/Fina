@@ -1,0 +1,60 @@
+﻿@model Fina.Lib.Database.Expense
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Life)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Life)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Variable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Variable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Creditor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Creditor)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
