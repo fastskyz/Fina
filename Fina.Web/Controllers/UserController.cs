@@ -21,6 +21,51 @@ namespace Fina.Web.Controllers
             _context = context;
         }
 
+        public async Task<User> UpdateUserData(User user)
+        {
+            user.Total = 0;
+            user.Negative = 0;
+            user.Positive = 0;
+
+            // update expenses
+            var expenses = _context.Entry(user).Collection(u => u.Expenses).Query().AsEnumerable();
+            if (expenses != null)
+            {
+                foreach (var exp in expenses)
+                {
+                    user.Negative += exp.Cost;
+                }
+            }
+
+            // update incomes
+            var incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
+            if (incomes != null)
+            {
+                foreach (var inc in incomes)
+                {
+                    user.Positive += inc.Amount;
+                }
+            }
+
+            user.Total = user.Positive - user.Negative;
+
+            // save changes to db
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            // return user to display details
+            return user;
+        }
+       
+
+        
+
+
+
+
+
+
+
         // GET: User
         public async Task<IActionResult> Index()
         {
@@ -29,23 +74,13 @@ namespace Fina.Web.Controllers
             var user = await _context.tbl_users
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            var expenses = _context.Entry(user).Collection(u => u.Expenses).Query().AsEnumerable();
-
-            if ( expenses != null )
-            {
-                decimal amount = 0;
-
-                foreach ( var exp in expenses )
-                {
-                    amount += exp.Cost;
-                }
-            }
-
             if (user == null)
             {
                 return NotFound();
             }
 
+            user = await UpdateUserData(user);
+            
             DetailsVm detailsVm = new DetailsVm();
 
             detailsVm.user = user;

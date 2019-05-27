@@ -1,0 +1,83 @@
+﻿@model Fina.Web.Models.IncomesOverviewVm;
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<h2 class="text-center overview-title">Incomes</h2>
+
+<br />
+
+<div class="container">
+    
+
+    <ul class="stats-list">
+        <li class="stats-list-positive">
+            @Model.Variable <span class="stats-list-label">Variable</span>
+        </li>
+        <li>
+            @Model.Total <span class="stats-list-label">Total</span>
+        </li>
+        <li class="stats-list-negative">
+            @Model.Life <span class="stats-list-label">Life Needed</span>
+        </li>
+    </ul>
+
+    <table class="table-expand">
+        <thead>
+            <tr class="table-expand-row">
+                <th width="400">Name</th>
+                <th width="200">Income</th>
+                <th>Work Hours</th>
+                <th>Variable</th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inc in Model.Incomes)
+            {
+                <tr class="table-expand-row" data-open-details>
+                    <td>@inc.Name</td>
+                    <td>@inc.Amount</td>
+                    <td>@inc.WorkHours</td>
+                    <td>@inc.Variable.ToString()</td>
+                    <td>More <span class="expand-icon"></span></td>
+                </tr>
+
+                <tr class="table-expand-row-content">
+                    <td colspan="8" class="table-expand-row-nested">
+                        @if (inc.Function != null || inc.Company != null)
+                        {
+                            <div class="">
+                                @if (@inc.Function != null)
+                                {
+                                    <p>Account Number: @inc.Function</p>
+                                }
+                                @if (@inc.Company != null)
+                                {
+                                    <p>Creditor: @inc.Company</p>
+                                }
+                            </div>
+                            <hr />
+                        }
+
+
+                        <div class="row">
+                            <a class="col-sm-1 text-center" asp-action="Edit" asp-route-id="@inc.Id">Edit</a> | <a class="col-sm-1 text-center" asp-action="Delete" asp-route-id="@inc.Id">Delete</a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+
+    <div class="text-center">
+        <a asp-action="Add">Add Expense</a>
+    </div>
+
+</div>
+
+

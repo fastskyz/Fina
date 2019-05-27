@@ -49,10 +49,10 @@
                     <a class="js-scroll-trigger" asp-controller="Home" asp-action="Services">Services</a>
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="Users" asp-action="Index">Log In</a>
+                    <a class="js-scroll-trigger" asp-controller="User" asp-action="Login">Log In</a>
                 </li>
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="Users" asp-action="Index">Sign Up</a>
+                    <a class="js-scroll-trigger" asp-controller="User" asp-action="SignUp">Sign Up</a>
                 </li>
             </ul>
         </nav>
@@ -66,8 +66,9 @@
     <!-- Body -->
     <div class="body-content">
         @RenderBody()
-        <hr />
+        
         <footer class="footer text-center">
+            <hr />
             <div class="container">
                 <ul class="list-inline mb-5">
                     <li class="list-inline-item">

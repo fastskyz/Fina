@@ -1,0 +1,97 @@
+﻿@model Fina.Web.Models.ExpenseAddVm
+
+@{
+
+    ViewData["Title"] = "Edit Expense";
+
+}
+
+<br />
+
+<h2 class="text-center overview-title">Edit Expense</h2>
+
+<div class="simple-center-block">
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div class="form-icons">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="input-group">
+                        <label asp-for="Name" class="input-group-label"><i class="fa fa-signature"></i></label>
+                        <input asp-for="Name" class="input-group-field" placeholder="Title" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label asp-for="Type" class="input-group-label"><i class="fa fa-sitemap"></i></label>
+                        <select asp-for="Type" class="input-group-field">
+                            @foreach (string type in Model.expenseTypes)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-group col-md-6">
+                            <label asp-for="Cost" class="input-group-label"><i class="fa fa-coins"></i></label>
+                            <input asp-for="Cost" class="input-group-field" placeholder="Title" />
+                            <span asp-validation-for="Cost" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group col-md-6">
+                            <label asp-for="Creditor" class="input-group-label"><i class="fa fa-user"></i></label>
+                            <input asp-for="Creditor" class="input-group-field" placeholder="Creditor" />
+                            <span asp-validation-for="Creditor" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label asp-for="AccountNumber" class="input-group-label"><i class="fa fa-university"></i></label>
+                        <input asp-for="AccountNumber" class="input-group-field" placeholder="Account Number" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="input-group col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="Variable" /> VARIABLE
+                                </label>
+                            </div>
+                        </div>
+                        <div class="input-group col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="Life" /> LIFE
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group">
+                        <input type="submit" value="Change" class="button expanded" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="text-center">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+

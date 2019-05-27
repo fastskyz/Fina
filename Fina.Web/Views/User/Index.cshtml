@@ -6,9 +6,9 @@
 
 <br>
 
-<div class="container">
+<div class="container simple-center-block">
     <div class="row">
-        <div class="card-profile-stats col-lg-6">
+        <div class="card-profile-stats col-lg-7">
             <div class="card-profile-stats-intro">
                 <img class="card-profile-stats-intro-pic" src="https://pbs.twimg.com/profile_images/732634911761260544/OxHbNdTF.jpg" alt="profile-image" />
                 <div class="card-profile-stats-intro-content">
@@ -34,8 +34,9 @@
                 </div>
             </div>
 
+            <br />
+
             <div class="card-profile-stats-more">
-                <p class="card-profile-stats-more-link"><a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a></p>
                 <div class="card-profile-stats-more-content">
                     <ul class="list-group">
                         <li class="list-group-item active">Personal Information</li>
@@ -48,11 +49,27 @@
             </div>
         </div>
 
-        <div class="card-profile-stats col-lg-6 text-center">
+        <div class="col-lg-1"></div>
+
+        <div class="card-profile-stats col-lg-4 text-center">
             <h3>ADD DATA</h3>
+            <br />
             <div class="button-group-option">
-                <a asp-controller="Expense" asp-action="Add" class="button success radius">Add Expense</a>
-                <a asp-controller="Income" asp-action="Add" class="button primary radius">Add Income</a>
+                <a asp-controller="Expense" asp-action="Add" class="button alert expanded">Add Expense</a>
+                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Expenses</a>
+                <hr />
+                <a asp-controller="Expense" asp-action="Add" class="button success expanded">Add Income</a>
+                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Incomes</a>
+            </div>
+            <br />
+            <hr />
+            <br />
+            <div class="button-group-option">
+                <a asp-controller="Expense" asp-action="Add" class="button warning expanded">Add Saving</a>
+                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Savings</a>
+                <hr />
+                <a asp-controller="Expense" asp-action="Add" class="button warning expanded">Add Security</a>
+                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Securities</a>
             </div>
         </div>
     </div>
