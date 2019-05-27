@@ -1,63 +1,48 @@
-﻿@model Fina.Lib.Database.Expense
+﻿@model Fina.Web.Models.ExpenseDeleteVm
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<br />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Expense</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Life)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Life)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Variable)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Variable)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Creditor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Creditor)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<h2 class="text-center overview-title">Expenses</h2>
+
+<br />
+
+<div class="container">
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Delete Expense</h4>
+        <hr />
+        <table class="table-expand">
+            <thead>
+                <tr class="table-expand-row">
+                    <th width="400">Name</th>
+                    <th width="200">Type</th>
+                    <th>Life Needed</th>
+                    <th>Variable</th>
+                    <th class="text-right" width="150">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-expand-row" data-open-details>
+                    <td>@Model.Name</td>
+                    <td>@Model.Type</td>
+                    <td>@Model.Life.ToString()</td>
+                    <td>@Model.Variable.ToString()</td>
+                    <td class="text-right">€@Model.Cost</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br />
+
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="button" />
+            <a asp-action="Index" class="button" >Back to List</a>
+        </form>
+    </div>
 </div>
+

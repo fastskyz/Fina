@@ -35,24 +35,6 @@ namespace Fina.Web.Controllers
             return View(expensesOverviewVm);
         }
 
-        // GET: Expense/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var expense = await _context.tbl_expenses
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (expense == null)
-            {
-                return NotFound();
-            }
-
-            return View(expense);
-        }
-
         // GET: Expense/Add
         public IActionResult Add()
         {
@@ -165,14 +147,19 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.tbl_expenses
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (expense == null)
+            Expense expense = await _context.tbl_expenses.Where(e => e.Id == id).FirstAsync();
+            ExpenseDeleteVm expenseDelete = new ExpenseDeleteVm
             {
-                return NotFound();
-            }
+                Id = expense.Id,
 
-            return View(expense);
+                Name = expense.Name,
+                Life = expense.Life,
+                Type = expense.Type,
+                Variable = expense.Variable,
+                Cost = expense.Cost
+            };
+
+            return View(expenseDelete);
         }
 
         // POST: Expense/Delete/5
