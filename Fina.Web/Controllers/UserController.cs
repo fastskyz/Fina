@@ -28,6 +28,19 @@ namespace Fina.Web.Controllers
 
             var user = await _context.tbl_users
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            var expenses = _context.Entry(user).Collection(u => u.Expenses).Query().AsEnumerable();
+
+            if ( expenses != null )
+            {
+                decimal amount = 0;
+
+                foreach ( var exp in expenses )
+                {
+                    amount += exp.Cost;
+                }
+            }
+
             if (user == null)
             {
                 return NotFound();

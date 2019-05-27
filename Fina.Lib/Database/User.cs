@@ -32,13 +32,13 @@ namespace Fina.Lib.Database
 
 
         [Required]
-        public int Total { get; set; }
+        public decimal Total { get; set; }
         [Required]
-        public int LifeFunds { get; set; }
+        public decimal LifeFunds { get; set; }
         [Required]
-        public int Positive { get; set; }
+        public decimal Positive { get; set; }
         [Required]
-        public int Negative { get; set; }
+        public decimal Negative { get; set; }
 
 
         public ICollection<Saving> Savings { get; set; }

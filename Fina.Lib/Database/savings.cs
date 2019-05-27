@@ -11,11 +11,11 @@ namespace Fina.Lib.Database
         public enum savingsType { Travel, Hobby, Childeren, Retirement, Other}
 
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public bool Longterm { get; set; }
         [Required]
-        public int Monthly { get; set; }
+        public decimal Monthly { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

@@ -9,7 +9,7 @@ namespace Fina.Lib.Database
     public class Income : baseEntity<User>
     {
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public bool Variable { get; set; }
         [Required]

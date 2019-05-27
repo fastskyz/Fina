@@ -12,11 +12,11 @@ namespace Fina.Lib.Database
         public enum secure_type { Guard, Runway }
 
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public secure_type Type { get; set; }
         [Required]
-        public int Monthly { get; set; }
+        public decimal Monthly { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
         
