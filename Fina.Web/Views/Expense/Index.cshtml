@@ -1,71 +1,82 @@
-﻿@model IEnumerable<Fina.Lib.Database.Expense>
-
+﻿@model Fina.Web.Models.ExpensesOverviewVm;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
 }
 
-<h2>Index</h2>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Life)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Variable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creditor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Life)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Variable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creditor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h2 class="text-center overview-title">Expenses</h2>
+
+<br />
+
+<div class="container">
+    
+
+    <ul class="stats-list">
+        <li class="stats-list-positive">
+            @Model.Variable <span class="stats-list-label">Variable</span>
+        </li>
+        <li>
+            @Model.Total <span class="stats-list-label">Total</span>
+        </li>
+        <li class="stats-list-negative">
+            @Model.Life <span class="stats-list-label">Life Needed</span>
+        </li>
+    </ul>
+
+    <table class="table-expand">
+        <thead>
+            <tr class="table-expand-row">
+                <th width="400">Name</th>
+                <th width="200">Type</th>
+                <th>Life Needed</th>
+                <th>Variable</th>
+                <th class="text-right" width="150">Cost</th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expense in Model.Expenses)
+            {
+                <tr class="table-expand-row" data-open-details>
+                    <td>@expense.Name</td>
+                    <td>@expense.Type</td>
+                    <td>@expense.Life.ToString()</td>
+                    <td>@expense.Variable.ToString()</td>
+                    <td class="text-right">€@expense.Cost</td>
+                    <td>More <span class="expand-icon"></span></td>
+                </tr>
+
+                <tr class="table-expand-row-content">
+                    <td colspan="8" class="table-expand-row-nested">
+                        @if (expense.AccountNumber != null || expense.Creditor != null)
+                        {
+                            <div class="">
+                                @if (@expense.AccountNumber != null)
+                                {
+                                    <p>Account Number: @expense.AccountNumber</p>
+                                }
+                                @if (@expense.Creditor != null)
+                                {
+                                    <p>Creditor: @expense.Creditor</p>
+                                }
+                            </div>
+                            <hr />
+                        }
+
+
+                        <div class="row">
+                            <a class="col-sm-1 text-center" asp-action="Edit" asp-route-id="@expense.Id">Edit</a> | <a class="col-sm-1 text-center" asp-action="Delete" asp-route-id="@expense.Id">Delete</a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Add">Add Expense</a>
+
+</div>
+
+

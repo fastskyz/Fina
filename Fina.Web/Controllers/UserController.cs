@@ -26,11 +26,6 @@ namespace Fina.Web.Controllers
         {
             long id = 1;
 
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var user = await _context.tbl_users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)

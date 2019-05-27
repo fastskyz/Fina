@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<br />
+<br>
 
 <div class="container">
     <div class="row">
@@ -20,17 +20,17 @@
             <hr />
 
             <div class="card-profile-stats-container">
-                <div class="card-profile-stats-statistic">
-                    <h4>Income:</h4>
-                    <span class="stat">1258</span>
+                <div class="card-profile-stats-statistic text-center">
+                    <h4 class="text-capitalize">Income</h4>
+                    <span class="stat">@Model.user.Positive</span>
                 </div>
-                <div class="card-profile-stats-statistic">
-                    <h4>Expenses:</h4>
-                    <span class="stat">500</span>
+                <div class="card-profile-stats-statistic text-center">
+                    <h4 class="text-capitalize">Expenses</h4>
+                    <span class="stat">@Model.user.Negative</span>
                 </div>
-                <div class="card-profile-stats-statistic">
-                    <h4>Remaining:</h4>
-                    <span class="stat">5411</span>
+                <div class="card-profile-stats-statistic text-center">
+                    <h4 class="text-capitalize">Remaining</h4>
+                    <span class="stat">@Model.user.Total</span>
                 </div>
             </div>
 

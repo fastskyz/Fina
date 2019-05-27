@@ -1,60 +1,54 @@
-﻿@model Fina.Lib.Database.Expense
-
+﻿@model Fina.Web.Models.ExpensesOverviewVm;
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<br />
 
-<div>
-    <h4>Expense</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Life)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Life)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Variable)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Variable)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Creditor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Creditor)
-        </dd>
-    </dl>
+<h2 class="text-center overview-title">Expenses</h2>
+
+<br />
+
+<div class="container">
+    <ul class="stats-list">
+        <li class="stats-list-positive">
+            135 <span class="stats-list-label">Normal</span>
+        </li>
+        <li>
+            17,678 <span class="stats-list-label">Total</span>
+        </li>
+        <li class="stats-list-negative">
+            2,390 <span class="stats-list-label">Not Needed</span>
+        </li>
+    </ul>
+
+    <table class="table-expand">
+        <thead>
+            <tr class="table-expand-row">
+                <th width="200">Name</th>
+                <th>Type</th>
+                <th class="text-right" width="150">Monthly Cost</th>
+                <th width="150"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expense in Model.Expenses)
+            {
+                <tr class="table-expand-row" data-open-details>
+                    <td>@expense.Name</td>
+                    <td>@expense.Type</td>
+                    <td class="text-right">€@expense.Cost</td>
+                    <td>More <span class="expand-icon"></span></td>
+                </tr>
+
+                <tr class="table-expand-row-content">
+                    <td colspan="8" class="table-expand-row-nested">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque unde quaerat reprehenderit ipsa ipsam, adipisci facere repellendus impedit at, quisquam dicta optio veniam quia nesciunt, inventore quod in neque magni?</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

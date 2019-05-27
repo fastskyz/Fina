@@ -22,7 +22,17 @@ namespace Fina.Web.Controllers
         // GET: Expense
         public async Task<IActionResult> Index()
         {
-            return View(await _context.tbl_expenses.ToListAsync());
+            long id = 1;
+            User user = await _context.tbl_users.Where(u => u.Id == id).FirstAsync();
+            ExpensesOverviewVm expensesOverviewVm = new ExpensesOverviewVm();
+
+            expensesOverviewVm.Expenses = _context.Entry(user).Collection(u => u.Expenses).Query().AsEnumerable();
+            expensesOverviewVm.Total = expensesOverviewVm.Expenses.Count();
+
+            expensesOverviewVm.Life = expensesOverviewVm.Expenses.Where(e => e.Life).Count();
+            expensesOverviewVm.Variable = expensesOverviewVm.Expenses.Where(e => e.Variable).Count();
+
+            return View(expensesOverviewVm);
         }
 
         // GET: Expense/Details/5
@@ -82,20 +92,25 @@ namespace Fina.Web.Controllers
             return View(expenseVm);
         }
 
+
+
         // GET: Expense/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null)
+            Expense currentExpense  = await _context.tbl_expenses.Where(e => e.Id == id).FirstAsync();
+            ExpenseAddVm expenseAddVm = new ExpenseAddVm
             {
-                return NotFound();
-            }
+                Name = currentExpense.Name,
+                Life = currentExpense.Life,
+                Type = currentExpense.Type,
+                Variable = currentExpense.Variable,
+                Cost = currentExpense.Cost,
 
-            var expense = await _context.tbl_expenses.FindAsync(id);
-            if (expense == null)
-            {
-                return NotFound();
-            }
-            return View(expense);
+                AccountNumber = currentExpense.AccountNumber,
+                Creditor = currentExpense.Creditor
+            };
+
+            return View(expenseAddVm);
         }
 
         // POST: Expense/Edit/5
@@ -103,23 +118,30 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,Id")] Expense expense)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] ExpenseAddVm expenseVm)
         {
-            if (id != expense.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
+                Expense updatedExpense = await _context.tbl_expenses.Where(e => e.Id == id).FirstAsync();
+
+                // Copy over properties
+                updatedExpense.Name = expenseVm.Name;
+                updatedExpense.Life = expenseVm.Life;
+                updatedExpense.Type = expenseVm.Type;
+                updatedExpense.Variable = expenseVm.Variable;
+                updatedExpense.Cost = expenseVm.Cost;
+
+                updatedExpense.AccountNumber = expenseVm.AccountNumber;
+                updatedExpense.Creditor = expenseVm.Creditor;
+
                 try
                 {
-                    _context.Update(expense);
+                    _context.Update(updatedExpense);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpenseExists(expense.Id))
+                    if (!ExpenseExists(updatedExpense.Id))
                     {
                         return NotFound();
                     }
@@ -130,7 +152,9 @@ namespace Fina.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(expense);
+
+            return View(expenseVm);
+            
         }
 
         // GET: Expense/Delete/5

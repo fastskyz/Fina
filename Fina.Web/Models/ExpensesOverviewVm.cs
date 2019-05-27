@@ -10,9 +10,8 @@ namespace Fina.Web.Models
     {
         public IEnumerable<Expense> Expenses { get; set; }
 
-        public int Total {
-            get { return Total; }
-            set { Expenses.Count(); }
-            }
+        public int Total { get; set; }
+        public int Variable { get; set; }
+        public int Life { get; set; }
     }
 }
