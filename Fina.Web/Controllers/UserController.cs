@@ -163,7 +163,7 @@ namespace Fina.Web.Controllers
                 _context.Add(user);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             return View(user);
         }
