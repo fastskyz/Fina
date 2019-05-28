@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security;
 using Fina.Lib.Database;
 using Fina.Web.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Fina.Web.Controllers
 {
@@ -15,6 +16,8 @@ namespace Fina.Web.Controllers
     {
 
         private readonly FinaContext _context;
+
+        public object HttpSessionState { get; private set; }
 
         public UserController(FinaContext context)
         {
@@ -116,8 +119,13 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Email,Password")] LoginVm details)
         {
+            string STATEKEY = "User Data";
 
-            User user = _context.tbl_users.Where(u => u.Email == details.Email).First();
+            User user = await _context.tbl_users.Where(u => u.Email == details.Email).FirstAsync();
+
+            string userData = JsonConvert.SerializeObject(user);
+
+            HttpContext.Session.SetString(STATEKEY ,userData);
 
             return View();
         }

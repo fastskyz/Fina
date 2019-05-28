@@ -29,7 +29,7 @@ namespace Fina.Web.Controllers
             incomesOverviewVm.Incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
             incomesOverviewVm.Total = incomesOverviewVm.Incomes.Count();
 
-            incomesOverviewVm.Life = incomesOverviewVm.Incomes.Where(e => e.Life).Count();
+            incomesOverviewVm.WorkHours = incomesOverviewVm.WorkHours;
             incomesOverviewVm.Variable = incomesOverviewVm.Incomes.Where(e => e.Variable).Count();
 
             return View(incomesOverviewVm);
@@ -50,7 +50,7 @@ namespace Fina.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm expenseVm)
+        public async Task<IActionResult> Add([Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm incomeVm)
         {
             if (ModelState.IsValid)
             {
@@ -58,20 +58,22 @@ namespace Fina.Web.Controllers
 
                 Income newIncomes = new Income {
                     FK = fk,
-                    Name = expenseVm.Name,
-                    AccountNumber = expenseVm.AccountNumber,
-                    Life = expenseVm.Life,
-                    Type = expenseVm.Type,
-                    Variable = expenseVm.Variable,
-                    Cost = expenseVm.Cost,
-                    Creditor = expenseVm.Creditor
+
+                    Name = incomeVm.Name,
+                    Amount = incomeVm.Amount,
+                    WorkHours = incomeVm.WorkHours,
+                    Variable = incomeVm.Variable,
+
+                    Function = incomeVm.Function,
+                    Company = incomeVm.Company,
+                    StartDate = incomeVm.StartDate
                 };
 
                 _context.Add(newIncomes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenseVm);
+            return View(incomeVm);
         }
 
 
@@ -83,13 +85,13 @@ namespace Fina.Web.Controllers
             IncomesAddVm expenseAddVm = new IncomesAddVm
             {
                 Name = currentIncomes.Name,
-                Life = currentIncomes.Life,
-                Type = currentIncomes.Type,
+                Amount = currentIncomes.Amount,
+                WorkHours = currentIncomes.WorkHours,
                 Variable = currentIncomes.Variable,
-                Cost = currentIncomes.Cost,
 
-                AccountNumber = currentIncomes.AccountNumber,
-                Creditor = currentIncomes.Creditor
+                Function = currentIncomes.Function,
+                Company = currentIncomes.Company,
+                StartDate = currentIncomes.StartDate
             };
 
             return View(expenseAddVm);
@@ -100,30 +102,30 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm expenseVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm incomeVm)
         {
             if (ModelState.IsValid)
             {
-                Income updatedIncomes = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
+                Income updatedIncome = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
 
                 // Copy over properties
-                updatedIncomes.Name = expenseVm.Name;
-                updatedIncomes.Life = expenseVm.Life;
-                updatedIncomes.Type = expenseVm.Type;
-                updatedIncomes.Variable = expenseVm.Variable;
-                updatedIncomes.Cost = expenseVm.Cost;
+                updatedIncome.Name = incomeVm.Name;
+                updatedIncome.Variable = incomeVm.Variable;
+                updatedIncome.Amount = incomeVm.Amount;
+                updatedIncome.WorkHours = incomeVm.WorkHours;
 
-                updatedIncomes.AccountNumber = expenseVm.AccountNumber;
-                updatedIncomes.Creditor = expenseVm.Creditor;
+                updatedIncome.Function = incomeVm.Function;
+                updatedIncome.Company = incomeVm.Company;
+                updatedIncome.StartDate = incomeVm.StartDate;
 
                 try
                 {
-                    _context.Update(updatedIncomes);
+                    _context.Update(updatedIncome);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IncomesExists(updatedIncomes.Id))
+                    if (!IncomesExists(updatedIncome.Id))
                     {
                         return NotFound();
                     }
@@ -135,7 +137,7 @@ namespace Fina.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(expenseVm);
+            return View(incomeVm);
             
         }
 
@@ -147,16 +149,15 @@ namespace Fina.Web.Controllers
                 return NotFound();
             }
 
-            Income expense = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
+            Income income = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
             IncomesDeleteVm expenseDelete = new IncomesDeleteVm
             {
-                Id = expense.Id,
+                Id = income.Id,
 
-                Name = expense.Name,
-                Life = expense.Life,
-                Type = expense.Type,
-                Variable = expense.Variable,
-                Cost = expense.Cost
+                Name = income.Name,
+                Amount = income.Amount,
+                WorkHours = income.WorkHours,
+                Variable = income.Variable,
             };
 
             return View(expenseDelete);

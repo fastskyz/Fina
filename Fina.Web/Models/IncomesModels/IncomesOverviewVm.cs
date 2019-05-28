@@ -12,6 +12,6 @@ namespace Fina.Web.Models
 
         public int Total { get; set; }
         public int Variable { get; set; }
-        public int Life { get; set; }
+        public int WorkHours { get; set; }
     }
 }

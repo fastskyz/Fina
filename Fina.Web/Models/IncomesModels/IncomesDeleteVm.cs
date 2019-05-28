@@ -1,6 +1,7 @@
 ﻿using Fina.Lib.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +11,13 @@ namespace Fina.Web.Models
     {
         public long Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
-        public bool Life { get; set; }
-        public Income Type { get; set; }
+        [Required]
+        public decimal Amount { get; set; }
+        [Required]
         public bool Variable { get; set; }
-        public decimal Cost { get; set; }
+        [Required]
+        public int WorkHours { get; set; }
     }
 }

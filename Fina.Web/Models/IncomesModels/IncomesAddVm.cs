@@ -12,17 +12,15 @@ namespace Fina.Web.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public bool Life { get; set; }
-        [Required]
-        public Incomes.IncomesType Type { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public bool Variable { get; set; }
         [Required]
-        public decimal Cost { get; set; }
+        public int WorkHours { get; set; }
 
-        public string AccountNumber { get; set; }
-        public string Creditor { get; set; }
-
-        public string[] expenseTypes = Enum.GetNames(typeof(Incomes.IncomesType));
+        // optional
+        public string Function { get; set; }
+        public string Company { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }

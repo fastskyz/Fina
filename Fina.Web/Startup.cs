@@ -35,7 +35,14 @@ namespace Fina.Web
 
             services.AddDbContext<FinaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FinaDev")));
 
-            services.AddSession();
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(2);
+            }
+            );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -55,7 +62,7 @@ namespace Fina.Web
 
             app.UseHttpsRedirection();
             app.UseSession();
-            app.UseAuthentication();
+            
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
