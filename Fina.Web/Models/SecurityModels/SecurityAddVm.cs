@@ -14,7 +14,7 @@ namespace Fina.Web.Models
         [Required]
         public decimal Monthly { get; set; }
         [Required]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         public string Description { get; set; }
         public string AccountNumber { get; set; }

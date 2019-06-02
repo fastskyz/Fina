@@ -17,19 +17,17 @@
         <table class="table-expand">
             <thead>
                 <tr class="table-expand-row">
-                    <th width="400">Name</th>
-                    <th width="200">Security Monthly</th>
-                    <th>Longterm</th>
-                    <th>Type</th>
-                    <th class="text-right" width="150">Amount</th>
+                    <th width="400">Type</th>
+                    <th width="200">Monthly</th>
+                    <th>Start Date</th>
+                    <th class="text-right" width="150">Amount Saved</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="table-expand-row" data-open-details>
-                    <td>@Model.Name</td>
+                    <td>@Model.Type</td>
                     <td>@Model.Monthly</td>
-                    <td>@Model.Longterm.ToString()</td>
-                    <td>@Model.Type.ToString()</td>
+                    <td>@Model.StartDate.ToString()</td>
                     <td class="text-right">€@Model.Amount</td>
                 </tr>
             </tbody>

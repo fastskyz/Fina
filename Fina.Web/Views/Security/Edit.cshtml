@@ -19,16 +19,11 @@
                 <div class="form-icons">
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="input-group">
-                        <label asp-for="Name" class="input-group-label"><i class="fa fa-signature"></i></label>
-                        <input asp-for="Name" class="input-group-field" placeholder="Title" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
 
                     <div class="input-group">
                         <label asp-for="Type" class="input-group-label"><i class="fa fa-sitemap"></i></label>
                         <select asp-for="Type" class="input-group-field">
-                            @foreach (string type in Model.securitiesType)
+                            @foreach (string type in Model.securityTypes)
                             {
                                 <option value="@type">@type</option>
                             }
@@ -42,16 +37,10 @@
                             <input asp-for="Monthly" class="input-group-field" placeholder="Monthly" />
                             <span asp-validation-for="Monthly" class="text-danger"></span>
                         </div>
-
-                        <div class="col-sm-2"></div>
-                        <div class="input-group col-sm-4">
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="Longterm" /> LONGTERM
-                                </label>
-                            </div>
+                        <div class="input-group col-md-6">
+                            <input asp-for="StartDate" type="text" value="@Model.StartDate" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
                         </div>
-
                     </div>
 
                     <div class="input-group">

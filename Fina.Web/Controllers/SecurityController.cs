@@ -16,14 +16,14 @@ using Fina.Web.Models.UserModels;
 
 namespace Fina.Web.Controllers
 {
-    public class SecuritiesController : Controller
+    public class SecurityController : Controller
     {
         private readonly FinaContext _context;
 
 
 
 
-        public SecuritiesController(FinaContext context)
+        public SecurityController(FinaContext context)
         {
             _context = context;
         }
@@ -115,7 +115,7 @@ namespace Fina.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
+        public async Task<IActionResult> Add([Bind("Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace Fina.Web.Controllers
                 Security newSecurities = new Security {
                     FK = fk,
 
-                    StartDate = securityVm.StartDate,
+                    StartDate = DateTime.Parse( securityVm.StartDate ),
                     Monthly = securityVm.Monthly,
                     Type = securityVm.Type,
 
@@ -164,7 +164,7 @@ namespace Fina.Web.Controllers
                 Security currentSecurities = await _context.tbl_security.Where(e => e.Id == id).FirstAsync();
                 SecurityAddVm securityAddVm = new SecurityAddVm
                 {
-                    StartDate = currentSecurities.StartDate,
+                    StartDate = currentSecurities.StartDate.ToString("dd/MM/yyyy"),
                     Monthly = currentSecurities.Monthly,
                     Type = currentSecurities.Type,
 
@@ -183,14 +183,14 @@ namespace Fina.Web.Controllers
         // POST: Securities/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
         {
             if (ModelState.IsValid)
             {
                 Security updatedSecurity = await _context.tbl_security.Where(e => e.Id == id).FirstAsync();
 
                 // Copy over properties
-                updatedSecurity.StartDate = securityVm.StartDate;
+                updatedSecurity.StartDate = DateTime.Parse( securityVm.StartDate );
                 updatedSecurity.Monthly = securityVm.Monthly;
                 updatedSecurity.Type = securityVm.Type;
 

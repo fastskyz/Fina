@@ -27,8 +27,8 @@
     <table class="table-expand">
         <thead>
             <tr class="table-expand-row">
-                <th width="400">Type</th>
-                <th width="200">Saved</th>
+                <th width="200">Type</th>
+                <th width="100">Saved</th>
                 <th>Monthly</th>
                 <th>Start Date</th>
                 <th width="100"></th>
@@ -41,7 +41,7 @@
                 <td>@inc.Type</td>
                 <td>@inc.Amount</td>
                 <td>@inc.Monthly</td>
-                <td>@inc.StartDate.ToString()</td>
+                <td>@inc.StartDate.ToString("dd/MM/yy")</td>
                 <td>More <span class="expand-icon"></span></td>
             </tr>
 
@@ -75,7 +75,7 @@
     <br />
 
     <div class="text-center">
-        <a asp-action="Add">Add Income</a>
+        <a asp-action="Add">Add Security</a>
     </div>
 
 </div>
