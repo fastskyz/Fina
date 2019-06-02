@@ -73,7 +73,7 @@ namespace Fina.Web.Controllers
         }
 
 
-        public bool LoggedIn()
+        public bool IsLoggedIn()
         {
             if (HttpContext.Session.GetString("User") != null)
             {
@@ -102,27 +102,16 @@ namespace Fina.Web.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            if ( HttpContext.Session.GetString("User") != null )
+            if ( IsLoggedIn() )
             {
-
                 string data = HttpContext.Session.GetString("User");
                 UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
 
-                // int? userSession = HttpContext.Session.GetInt32("Id");
+                var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
-                if ( userSession.Id != 0 )
-                {
-                    var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
-
-                    if (user == null)
-                    {
-                        return NotFound();
-                    }
-
-                    
-                    DetailsVm detailsVm = new DetailsVm { user = await UpdateUserData(user) } ;
-                    return View(detailsVm);
-                }
+                DetailsVm detailsVm = new DetailsVm { user = await UpdateUserData(user) } ;
+                return View(detailsVm);
+                
             }
             return RedirectToAction(nameof(Login));
         }
@@ -241,23 +230,30 @@ namespace Fina.Web.Controllers
         // GET: User/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null)
+            if (IsLoggedIn())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var User = await _context.tbl_users.FindAsync(id);
-            if (User == null)
-            {
-                return NotFound();
-            }
-            return View(User);
-        }
 
-        // POST: User/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
+
+                return View(User);
+
+            }
+            return RedirectToAction(nameof(Login));
+
+    }
+
+    // POST: User/Edit/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("Id,Name,FirstName,Email,Country,Password,Age,Currency")] User User)
         {
