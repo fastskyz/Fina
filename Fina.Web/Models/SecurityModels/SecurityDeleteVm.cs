@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class SecuritiesDeleteVm
+    public class SecurityDeleteVm
     {
         public long Id { get; set; }
         
         public decimal Amount { get; set; }
-        public bool Longterm { get; set; }
+        public Security.secure_type Type { get; set; }
         public decimal Monthly { get; set; }
-        public string Name { get; set; }
-        public Security.securitiesType Type { get; set; }
+        public DateTime StartDate { get; set; }
+
     }
 }

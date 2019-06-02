@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class SecuritiesOverviewVm
+    public class SecurityOverviewVm
     {
         public IEnumerable<Security> Securities { get; set; }
 

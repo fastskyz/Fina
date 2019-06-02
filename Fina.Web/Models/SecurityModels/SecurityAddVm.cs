@@ -10,20 +10,16 @@ namespace Fina.Web.Models
     public class SecurityAddVm
     {
         [Required]
-        public bool Longterm { get; set; }
+        public Security.secure_type Type { get; set; }
         [Required]
         public decimal Monthly { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public Saving.savingsType Type { get; set; }
+        public DateTime StartDate { get; set; }
 
         public string Description { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime StartDate { get; set; }
         public string AccountNumber { get; set; }
 
-        public string[] savingsType = Enum.GetNames(typeof(Saving.savingsType));
+        public string[] securityTypes = Enum.GetNames(typeof(Security.secure_type));
 
     }
 }

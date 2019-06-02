@@ -64,25 +64,25 @@ namespace Fina.Web.Controllers
                 decimal TotalSaved = 0;
                 decimal MonthlySaved = 0;
 
-                SecuritiesOverviewVm securitiesOverviewVm = new SecuritiesOverviewVm();
-                securitiesOverviewVm.Securities = _context.Entry(user).Collection(u => u.Securities).Query().AsEnumerable();
-                securitiesOverviewVm.nSecurities = securitiesOverviewVm.Securities.Count();
+                SecurityOverviewVm securityOverviewVm = new SecurityOverviewVm();
+                securityOverviewVm.Securities = _context.Entry(user).Collection(u => u.Securities).Query().AsEnumerable();
+                securityOverviewVm.nSecurities = securityOverviewVm.Securities.Count();
 
-                foreach ( var sec in securitiesOverviewVm.Securities )
+                foreach ( var sec in securityOverviewVm.Securities )
                 {
                     TotalSaved += sec.Amount;
                 }
 
-                securitiesOverviewVm.Total = TotalSaved;
+                securityOverviewVm.Total = TotalSaved;
 
-                foreach (var sec in securitiesOverviewVm.Securities)
+                foreach (var sec in securityOverviewVm.Securities)
                 {
                     TotalSaved += sec.Monthly;
                 }
 
-                securitiesOverviewVm.Monthly = MonthlySaved;
+                securityOverviewVm.Monthly = MonthlySaved;
 
-                return View(securitiesOverviewVm);
+                return View(securityOverviewVm);
             }
 
             return RedirectToAction("Login", "User");
@@ -127,14 +127,13 @@ namespace Fina.Web.Controllers
                 Security newSecurities = new Security {
                     FK = fk,
 
-                    Name = securityVm.Name,
-                    Longterm = securityVm.Longterm,
+                    StartDate = securityVm.StartDate,
                     Monthly = securityVm.Monthly,
                     Type = securityVm.Type,
 
                     Description = securityVm.Description,
                     AccountNumber = securityVm.AccountNumber,
-                    StartDate = securityVm.StartDate
+                    
                 };
 
                 _context.Add(newSecurities);
@@ -162,17 +161,16 @@ namespace Fina.Web.Controllers
         {
             if (IsLoggedIn())
             {
-                Security currentSecurities = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
+                Security currentSecurities = await _context.tbl_security.Where(e => e.Id == id).FirstAsync();
                 SecurityAddVm securityAddVm = new SecurityAddVm
                 {
-                    Name = currentSecurities.Name,
-                    Longterm = currentSecurities.Longterm,
+                    StartDate = currentSecurities.StartDate,
                     Monthly = currentSecurities.Monthly,
                     Type = currentSecurities.Type,
 
                     Description = currentSecurities.Description,
                     AccountNumber = currentSecurities.AccountNumber,
-                    StartDate = currentSecurities.StartDate
+                    
                 };
 
                 return View(securityAddVm);
@@ -189,17 +187,15 @@ namespace Fina.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Security updatedSecurity = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
+                Security updatedSecurity = await _context.tbl_security.Where(e => e.Id == id).FirstAsync();
 
                 // Copy over properties
-                updatedSecurity.Name = securityVm.Name;
+                updatedSecurity.StartDate = securityVm.StartDate;
                 updatedSecurity.Monthly = securityVm.Monthly;
-                updatedSecurity.Longterm = securityVm.Longterm;
                 updatedSecurity.Type = securityVm.Type;
 
                 updatedSecurity.Description = securityVm.Description;
                 updatedSecurity.AccountNumber = securityVm.AccountNumber;
-                updatedSecurity.StartDate = securityVm.StartDate;
 
                 try
                 {
@@ -250,16 +246,15 @@ namespace Fina.Web.Controllers
                     return NotFound();
                 }
 
-                Security security = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
-                SecuritiesDeleteVm securityDelete = new SecuritiesDeleteVm
+                Security security = await _context.tbl_security.Where(e => e.Id == id).FirstAsync();
+                SecurityDeleteVm securityDelete = new SecurityDeleteVm
                 {
                     Id = security.Id,
 
-                    Name = security.Name,
-                    Amount = security.Amount,
+                    StartDate = security.StartDate,
                     Monthly = security.Monthly,
-                    Longterm = security.Longterm,
                     Type = security.Type,
+                    
                 };
 
                 return View(securityDelete);
@@ -275,15 +270,15 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var security = await _context.tbl_securities.FindAsync(id);
-            _context.tbl_securities.Remove(security);
+            var security = await _context.tbl_security.FindAsync(id);
+            _context.tbl_security.Remove(security);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SecuritiesExists(long id)
         {
-            return _context.tbl_securities.Any(e => e.Id == id);
+            return _context.tbl_security.Any(e => e.Id == id);
         }
     }
 }
