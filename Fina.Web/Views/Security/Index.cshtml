@@ -1,0 +1,85 @@
+﻿@model Fina.Web.Models.SavingsOverviewVm
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<h2 class="text-center overview-title">Savings</h2>
+
+<br />
+
+<div class="container">
+    
+
+    <ul class="stats-list">
+        <li class="stats-list-positive">
+            @Model.Monthly <span class="stats-list-label">Saving Monthly</span>
+        </li>
+        <li>
+            @Model.Total <span class="stats-list-label">Total Saved</span>
+        </li>
+        <li class="stats-list-negative">
+            @Model.nSavings <span class="stats-list-label">Savings Running</span>
+        </li>
+    </ul>
+
+    <table class="table-expand">
+        <thead>
+            <tr class="table-expand-row">
+                <th width="400">Name</th>
+                <th width="200">Saved</th>
+                <th>Saving/Month</th>
+                <th>Type</th>
+                <th>Longterm</th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inc in Model.Savings)
+            {
+            <tr class="table-expand-row" data-open-details>
+                <td>@inc.Name</td>
+                <td>@inc.Amount</td>
+                <td>@inc.Monthly</td>
+                <td>@inc.Type.ToString()</td>
+                <td>@inc.Longterm.ToString()</td>
+                <td>More <span class="expand-icon"></span></td>
+            </tr>
+
+                <tr class="table-expand-row-content">
+                    <td colspan="8" class="table-expand-row-nested">
+                        @if (inc.Description != null || inc.AccountNumber != null)
+                        {
+                            <div class="">
+                                @if (@inc.Description != null)
+                                {
+                                    <p>Description: @inc.Description</p>
+                                }
+                                @if (@inc.AccountNumber != null)
+                                {
+                                    <p>Account Number: @inc.AccountNumber</p>
+                                }
+                            </div>
+                            <hr />
+                        }
+
+
+                        <div class="row">
+                            <a class="col-sm-1 text-center" asp-action="Edit" asp-route-id="@inc.Id">Edit</a> | <a class="col-sm-1 text-center" asp-action="Delete" asp-route-id="@inc.Id">Delete</a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+
+    <div class="text-center">
+        <a asp-action="Add">Add Income</a>
+    </div>
+
+</div>
+
+

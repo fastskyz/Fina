@@ -1,0 +1,47 @@
+﻿@model Fina.Web.Models.SavingsDeleteVm
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+
+<h2 class="text-center overview-title">Incomes</h2>
+
+<br />
+
+<div class="container simple-center-block">
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <hr />
+        <table class="table-expand">
+            <thead>
+                <tr class="table-expand-row">
+                    <th width="400">Name</th>
+                    <th width="200">Saving Monthly</th>
+                    <th>Longterm</th>
+                    <th>Type</th>
+                    <th class="text-right" width="150">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-expand-row" data-open-details>
+                    <td>@Model.Name</td>
+                    <td>@Model.Monthly</td>
+                    <td>@Model.Longterm.ToString()</td>
+                    <td>@Model.Type.ToString()</td>
+                    <td class="text-right">€@Model.Amount</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br />
+
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="button" />
+            <a asp-action="Index" class="button" >Back to List</a>
+        </form>
+    </div>
+</div>
+
