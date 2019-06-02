@@ -16,14 +16,14 @@ using Fina.Web.Models.UserModels;
 
 namespace Fina.Web.Controllers
 {
-    public class IncomesController : Controller
+    public class SavingsController : Controller
     {
         private readonly FinaContext _context;
 
 
 
 
-        public IncomesController(FinaContext context)
+        public SavingsController(FinaContext context)
         {
             _context = context;
         }
@@ -51,7 +51,7 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Incomes
+        // GET: Savings
         public async Task<IActionResult> Index()
         {
             if (IsLoggedIn())
@@ -63,19 +63,19 @@ namespace Fina.Web.Controllers
 
                 int WorkHoursTotal = 0;
 
-                IncomesOverviewVm incomesOverviewVm = new IncomesOverviewVm();
-                incomesOverviewVm.Incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
-                incomesOverviewVm.Total = incomesOverviewVm.Incomes.Count();
+                SavingsOverviewVm savingsOverviewVm = new SavingsOverviewVm();
+                savingsOverviewVm.Savings = _context.Entry(user).Collection(u => u.Savings).Query().AsEnumerable();
+                savingsOverviewVm.Total = savingsOverviewVm.Savings.Count();
 
-                foreach ( var inc in incomesOverviewVm.Incomes )
+                foreach ( var inc in savingsOverviewVm.Savings )
                 {
                     WorkHoursTotal += inc.WorkHours;
                 }
 
-                incomesOverviewVm.WorkHours = WorkHoursTotal;
-                incomesOverviewVm.Variable = incomesOverviewVm.Incomes.Where(e => e.Variable).Count();
+                savingsOverviewVm.WorkHours = WorkHoursTotal;
+                savingsOverviewVm.Variable = savingsOverviewVm.Savings.Where(e => e.Variable).Count();
 
-                return View(incomesOverviewVm);
+                return View(savingsOverviewVm);
             }
 
             return RedirectToAction("Login", "User");
@@ -91,24 +91,24 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Incomes/Add
+        // GET: Savings/Add
         public IActionResult Add()
         {
             if (IsLoggedIn())
             {
-                IncomesAddVm incomesAddVm = new IncomesAddVm();
+                SavingsAddVm savingsAddVm = new SavingsAddVm();
 
-                return View(incomesAddVm);
+                return View(savingsAddVm);
             }
 
             return RedirectToAction("Login", "User");
         }
 
-        // POST: Incomes/Add
+        // POST: Savings/Add
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] IncomesAddVm incomeVm)
+        public async Task<IActionResult> Add([Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] SavingsAddVm savingVm)
         {
             if (ModelState.IsValid)
             {
@@ -117,24 +117,24 @@ namespace Fina.Web.Controllers
 
                 var fk = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
-                Income newIncomes = new Income {
+                Saving newSavings = new Saving {
                     FK = fk,
 
-                    Name = incomeVm.Name,
-                    Amount = incomeVm.Amount,
-                    WorkHours = incomeVm.WorkHours,
-                    Variable = incomeVm.Variable,
+                    Name = savingVm.Name,
+                    Amount = savingVm.Amount,
+                    WorkHours = savingVm.WorkHours,
+                    Variable = savingVm.Variable,
 
-                    Function = incomeVm.Function,
-                    Company = incomeVm.Company,
-                    StartDate = incomeVm.StartDate
+                    Function = savingVm.Function,
+                    Company = savingVm.Company,
+                    StartDate = savingVm.StartDate
                 };
 
-                _context.Add(newIncomes);
+                _context.Add(newSavings);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(incomeVm);
+            return View(savingVm);
         }
 
 
@@ -150,58 +150,58 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Incomes/Edit/5
+        // GET: Savings/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (IsLoggedIn())
             {
-                Income currentIncomes = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-                IncomesAddVm incomeAddVm = new IncomesAddVm
+                Saving currentSavings = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
+                SavingsAddVm savingAddVm = new SavingsAddVm
                 {
-                    Name = currentIncomes.Name,
-                    Amount = currentIncomes.Amount,
-                    WorkHours = currentIncomes.WorkHours,
-                    Variable = currentIncomes.Variable,
+                    Name = currentSavings.Name,
+                    Amount = currentSavings.Amount,
+                    WorkHours = currentSavings.WorkHours,
+                    Variable = currentSavings.Variable,
 
-                    Function = currentIncomes.Function,
-                    Company = currentIncomes.Company,
-                    StartDate = currentIncomes.StartDate
+                    Function = currentSavings.Function,
+                    Company = currentSavings.Company,
+                    StartDate = currentSavings.StartDate
                 };
 
-                return View(incomeAddVm);
+                return View(savingAddVm);
             }
 
             return RedirectToAction("Login", "User");
             
         }
 
-        // POST: Incomes/Edit/5
+        // POST: Savings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] IncomesAddVm incomeVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] SavingsAddVm savingVm)
         {
             if (ModelState.IsValid)
             {
-                Income updatedIncome = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
+                Saving updatedSaving = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
 
                 // Copy over properties
-                updatedIncome.Name = incomeVm.Name;
-                updatedIncome.Variable = incomeVm.Variable;
-                updatedIncome.Amount = incomeVm.Amount;
-                updatedIncome.WorkHours = incomeVm.WorkHours;
+                updatedSaving.Name = savingVm.Name;
+                updatedSaving.Variable = savingVm.Variable;
+                updatedSaving.Amount = savingVm.Amount;
+                updatedSaving.WorkHours = savingVm.WorkHours;
 
-                updatedIncome.Function = incomeVm.Function;
-                updatedIncome.Company = incomeVm.Company;
-                updatedIncome.StartDate = incomeVm.StartDate;
+                updatedSaving.Function = savingVm.Function;
+                updatedSaving.Company = savingVm.Company;
+                updatedSaving.StartDate = savingVm.StartDate;
 
                 try
                 {
-                    _context.Update(updatedIncome);
+                    _context.Update(updatedSaving);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IncomesExists(updatedIncome.Id))
+                    if (!SavingsExists(updatedSaving.Id))
                     {
                         return NotFound();
                     }
@@ -213,7 +213,7 @@ namespace Fina.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(incomeVm);
+            return View(savingVm);
             
         }
 
@@ -233,7 +233,7 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Incomes/Delete/5
+        // GET: Savings/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (IsLoggedIn())
@@ -243,18 +243,18 @@ namespace Fina.Web.Controllers
                     return NotFound();
                 }
 
-                Income income = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-                IncomesDeleteVm incomeDelete = new IncomesDeleteVm
+                Saving saving = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
+                SavingsDeleteVm savingDelete = new SavingsDeleteVm
                 {
-                    Id = income.Id,
+                    Id = saving.Id,
 
-                    Name = income.Name,
-                    Amount = income.Amount,
-                    WorkHours = income.WorkHours,
-                    Variable = income.Variable,
+                    Name = saving.Name,
+                    Amount = saving.Amount,
+                    WorkHours = saving.WorkHours,
+                    Variable = saving.Variable,
                 };
 
-                return View(incomeDelete);
+                return View(savingDelete);
             }
 
             return RedirectToAction("Login", "User");
@@ -262,20 +262,20 @@ namespace Fina.Web.Controllers
             
         }
 
-        // POST: Incomes/Delete/5
+        // POST: Savings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var income = await _context.tbl_incomes.FindAsync(id);
-            _context.tbl_incomes.Remove(income);
+            var saving = await _context.tbl_savings.FindAsync(id);
+            _context.tbl_savings.Remove(saving);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IncomesExists(long id)
+        private bool SavingsExists(long id)
         {
-            return _context.tbl_incomes.Any(e => e.Id == id);
+            return _context.tbl_savings.Any(e => e.Id == id);
         }
     }
 }
