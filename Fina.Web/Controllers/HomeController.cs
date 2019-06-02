@@ -12,5 +12,11 @@ namespace Fina.Web.Controllers
         {
             return View();
         }
+
+
+        public IActionResult Admin()
+        {
+            return View();
+        }
     }
 }
