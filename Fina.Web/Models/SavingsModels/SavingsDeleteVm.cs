@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class IncomesDeleteVm
+    public class SavingsDeleteVm
     {
         public long Id { get; set; }
 

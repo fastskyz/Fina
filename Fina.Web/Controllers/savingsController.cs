@@ -61,19 +61,26 @@ namespace Fina.Web.Controllers
 
                 var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
-                int WorkHoursTotal = 0;
+                decimal TotalSaved = 0;
+                decimal MonthlySaved = 0;
 
                 SavingsOverviewVm savingsOverviewVm = new SavingsOverviewVm();
                 savingsOverviewVm.Savings = _context.Entry(user).Collection(u => u.Savings).Query().AsEnumerable();
-                savingsOverviewVm.Total = savingsOverviewVm.Savings.Count();
+                savingsOverviewVm.nSavings = savingsOverviewVm.Savings.Count();
 
-                foreach ( var inc in savingsOverviewVm.Savings )
+                foreach ( var sav in savingsOverviewVm.Savings )
                 {
-                    WorkHoursTotal += inc.WorkHours;
+                    TotalSaved += sav.Amount;
                 }
 
-                savingsOverviewVm.WorkHours = WorkHoursTotal;
-                savingsOverviewVm.Variable = savingsOverviewVm.Savings.Where(e => e.Variable).Count();
+                savingsOverviewVm.Total = TotalSaved;
+
+                foreach (var sav in savingsOverviewVm.Savings)
+                {
+                    TotalSaved += sav.Monthly;
+                }
+
+                savingsOverviewVm.Monthly = MonthlySaved;
 
                 return View(savingsOverviewVm);
             }

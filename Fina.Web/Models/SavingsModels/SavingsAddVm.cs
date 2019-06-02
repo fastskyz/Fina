@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class IncomesAddVm
+    public class SavingsAddVm
     {
         [Required]
         public string Name { get; set; }
