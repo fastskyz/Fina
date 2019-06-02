@@ -7,6 +7,7 @@ namespace Fina.Web.Models.UserModels
 {
     public class UserSessionModel
     {
-
+        public long Id { get; set; }
+        public string FName { get; set; }
     }
 }

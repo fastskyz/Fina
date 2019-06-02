@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+
+using Newtonsoft.Json;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security;
+
 using Fina.Lib.Database;
 using Fina.Web.Models;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+using Fina.Web.Models.UserModels;
+
+
+
 
 namespace Fina.Web.Controllers
 {
@@ -16,6 +23,8 @@ namespace Fina.Web.Controllers
     {
 
         private readonly FinaContext _context;
+
+        public string STATEKEY = "UserData";
 
         public object HttpSessionState { get; private set; }
 
@@ -41,7 +50,10 @@ namespace Fina.Web.Controllers
             }
 
             // update incomes
+
+            
             var incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
+
             if (incomes != null)
             {
                 foreach (var inc in incomes)
@@ -49,7 +61,7 @@ namespace Fina.Web.Controllers
                     user.Positive += inc.Amount;
                 }
             }
-
+            
             user.Total = user.Positive - user.Negative;
 
             // save changes to db
@@ -59,9 +71,27 @@ namespace Fina.Web.Controllers
             // return user to display details
             return user;
         }
-       
 
-        
+
+        public bool LoggedIn()
+        {
+            if (HttpContext.Session.GetString("User") != null)
+            {
+
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                if (userSession.Id != 0)
+                {
+                    return _context.tbl_users.Any(u => u.Id == userSession.Id);
+                }
+            }
+
+            return false;
+        }
+
+
+
 
 
 
@@ -72,23 +102,29 @@ namespace Fina.Web.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            long id = 1;
-
-            var user = await _context.tbl_users
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (user == null)
+            if ( HttpContext.Session.GetString("User") != null )
             {
-                return NotFound();
+
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                // int? userSession = HttpContext.Session.GetInt32("Id");
+
+                if ( userSession.Id != 0 )
+                {
+                    var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
+
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
+
+                    
+                    DetailsVm detailsVm = new DetailsVm { user = await UpdateUserData(user) } ;
+                    return View(detailsVm);
+                }
             }
-
-            user = await UpdateUserData(user);
-            
-            DetailsVm detailsVm = new DetailsVm();
-
-            detailsVm.user = user;
-
-            return View(detailsVm);
+            return RedirectToAction(nameof(Login));
         }
 
 
@@ -119,13 +155,32 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Email,Password")] LoginVm details)
         {
-            string STATEKEY = "User Data";
+            User user = await _context.tbl_users.Where(u => u.Email == details.Email).FirstOrDefaultAsync();
 
-            User user = await _context.tbl_users.Where(u => u.Email == details.Email).FirstAsync();
+            if ( user != null )
+            {
+                if ( SHA256.Create(user.Password) == SHA256.Create(details.Password) )
+                {
+                    UserSessionModel userSession = new UserSessionModel();
 
-            string userData = JsonConvert.SerializeObject(user);
+                    userSession.Id = user.Id;
+                    userSession.FName = user.FirstName;
 
-            HttpContext.Session.SetString(STATEKEY ,userData);
+                    //string userData = JsonConvert.SerializeObject(userSession);
+                    string json = JsonConvert.SerializeObject(userSession);
+
+
+                    //int newId = Convert.ToInt32(user.Id);
+
+                    HttpContext.Session.SetString("User", json);
+
+
+                    TempData["Message"] = $"Welcome, {userSession.FName}. You are now logged in.";
+                    TempData["MessageType"] = "success";
+
+                    return RedirectToAction(nameof(Index));
+                }
+            }
 
             return View();
         }

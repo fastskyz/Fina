@@ -21,10 +21,10 @@ namespace Fina.Web.Migrations
                     Password = table.Column<string>(nullable: false),
                     Age = table.Column<byte>(nullable: false),
                     Currency = table.Column<string>(nullable: false),
-                    Total = table.Column<int>(nullable: false),
-                    LifeFunds = table.Column<int>(nullable: false),
-                    Positive = table.Column<int>(nullable: false),
-                    Negative = table.Column<int>(nullable: false)
+                    Total = table.Column<decimal>(nullable: false),
+                    LifeFunds = table.Column<decimal>(nullable: false),
+                    Positive = table.Column<decimal>(nullable: false),
+                    Negative = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +64,8 @@ namespace Fina.Web.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     User = table.Column<long>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
                     Variable = table.Column<bool>(nullable: false),
                     WorkHours = table.Column<int>(nullable: false),
                     Function = table.Column<string>(nullable: true),
@@ -89,9 +90,9 @@ namespace Fina.Web.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     User = table.Column<long>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
                     Longterm = table.Column<bool>(nullable: false),
-                    Monthly = table.Column<int>(nullable: false),
+                    Monthly = table.Column<decimal>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Type = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
@@ -117,9 +118,9 @@ namespace Fina.Web.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     User = table.Column<long>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
                     Type = table.Column<string>(nullable: false),
-                    Monthly = table.Column<int>(nullable: false),
+                    Monthly = table.Column<decimal>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     AccountNumber = table.Column<string>(nullable: true)

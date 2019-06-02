@@ -1,0 +1,8 @@
+﻿@using Fina.Web;
+
+@if (TempData.ContainsKey("Message"))
+{
+    <header class="alert alert-@TempData["MessageType"]">
+        <p>@TempData["Message"]</p>
+    </header>
+}

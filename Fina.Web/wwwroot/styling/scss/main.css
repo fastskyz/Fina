@@ -140,6 +140,10 @@ h6 {
   color: #fff;
   background: none; }
 
+#bottom {
+  bottom: 10px;
+  top: unset; }
+
 #sidebar-wrapper.active {
   right: 250px;
   width: 250px;

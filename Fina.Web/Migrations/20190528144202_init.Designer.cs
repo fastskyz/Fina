@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fina.Web.Migrations
 {
     [DbContext(typeof(FinaContext))]
-    [Migration("20190527184706_decimal")]
-    partial class @decimal
+    [Migration("20190528144202_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,9 @@ namespace Fina.Web.Migrations
                     b.Property<string>("Company");
 
                     b.Property<string>("Function");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<DateTime>("StartDate");
 

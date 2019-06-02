@@ -33,29 +33,7 @@
 <body>
 
     <div id="page-top">
-        <!-- Navigation -->
-        <a class="menu-toggle rounded" href="#">
-            <i class="fas fa-bars"></i>
-        </a>
-        <nav id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a class="js-scroll-trigger" asp-controller="Home" asp-action="Index">Fina</a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="Home" asp-action="Services">Services</a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="User" asp-action="Login">Log In</a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" asp-controller="User" asp-action="SignUp">Sign Up</a>
-                </li>
-            </ul>
-        </nav>
+        <partial name="_Navbar" model="ViewBag.isLoggedIn" />
     </div>
     
 
@@ -65,8 +43,11 @@
 
     <!-- Body -->
     <div class="body-content">
+        <partial name="_MessagePartial">
+
+
         @RenderBody()
-        
+
         <footer class="footer text-center">
             <hr />
             <div class="container">

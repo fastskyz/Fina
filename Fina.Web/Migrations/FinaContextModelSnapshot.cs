@@ -63,6 +63,9 @@ namespace Fina.Web.Migrations
 
                     b.Property<string>("Function");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<DateTime>("StartDate");
 
                     b.Property<long?>("User")
