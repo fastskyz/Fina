@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+
+using Newtonsoft.Json;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
 using Fina.Lib.Database;
 using Fina.Web.Models;
+using Fina.Web.Models.UserModels;
 
 namespace Fina.Web.Controllers
 {
@@ -14,33 +20,71 @@ namespace Fina.Web.Controllers
     {
         private readonly FinaContext _context;
 
+
+
+
         public IncomesController(FinaContext context)
         {
             _context = context;
         }
 
+
+
+
+        public bool IsLoggedIn()
+        {
+            if (HttpContext.Session.GetString("User") != null)
+            {
+
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                if (userSession.Id != 0)
+                {
+                    return _context.tbl_users.Any(u => u.Id == userSession.Id);
+                }
+            }
+
+            return false;
+        }
+
+
+
+
         // GET: Incomes
         public async Task<IActionResult> Index()
         {
-            long id = 1;
-            User user = await _context.tbl_users.Where(u => u.Id == id).FirstAsync();
-            IncomesOverviewVm incomesOverviewVm = new IncomesOverviewVm();
+            if (IsLoggedIn())
+            {
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
 
-            incomesOverviewVm.Incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
-            incomesOverviewVm.Total = incomesOverviewVm.Incomes.Count();
+                var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
-            incomesOverviewVm.WorkHours = incomesOverviewVm.WorkHours;
-            incomesOverviewVm.Variable = incomesOverviewVm.Incomes.Where(e => e.Variable).Count();
 
-            return View(incomesOverviewVm);
+                IncomesOverviewVm incomesOverviewVm = new IncomesOverviewVm();
+                incomesOverviewVm.Incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
+                incomesOverviewVm.Total = incomesOverviewVm.Incomes.Count();
+                incomesOverviewVm.WorkHours = incomesOverviewVm.WorkHours;
+                incomesOverviewVm.Variable = incomesOverviewVm.Incomes.Where(e => e.Variable).Count();
+
+                return View(incomesOverviewVm);
+            }
+
+            return RedirectToAction("Login", "User");
         }
 
         // GET: Incomes/Add
         public IActionResult Add()
         {
-            IncomesAddVm expenseAddVm = new IncomesAddVm();
+            if (IsLoggedIn())
+            {
+                IncomesAddVm expenseAddVm = new IncomesAddVm();
 
-            return View(expenseAddVm);
+                return View(expenseAddVm);
+            }
+
+            return RedirectToAction("Login", "User");
         }
 
         // POST: Incomes/Add
@@ -54,7 +98,10 @@ namespace Fina.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fk = await _context.tbl_users.Where(u => u.Id == 1).FirstAsync();
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                var fk = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
                 Income newIncomes = new Income {
                     FK = fk,
@@ -81,20 +128,26 @@ namespace Fina.Web.Controllers
         // GET: Incomes/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            Income currentIncomes  = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-            IncomesAddVm expenseAddVm = new IncomesAddVm
+            if (IsLoggedIn())
             {
-                Name = currentIncomes.Name,
-                Amount = currentIncomes.Amount,
-                WorkHours = currentIncomes.WorkHours,
-                Variable = currentIncomes.Variable,
+                Income currentIncomes = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
+                IncomesAddVm expenseAddVm = new IncomesAddVm
+                {
+                    Name = currentIncomes.Name,
+                    Amount = currentIncomes.Amount,
+                    WorkHours = currentIncomes.WorkHours,
+                    Variable = currentIncomes.Variable,
 
-                Function = currentIncomes.Function,
-                Company = currentIncomes.Company,
-                StartDate = currentIncomes.StartDate
-            };
+                    Function = currentIncomes.Function,
+                    Company = currentIncomes.Company,
+                    StartDate = currentIncomes.StartDate
+                };
 
-            return View(expenseAddVm);
+                return View(expenseAddVm);
+            }
+
+            return RedirectToAction("Login", "User");
+            
         }
 
         // POST: Incomes/Edit/5
@@ -144,23 +197,30 @@ namespace Fina.Web.Controllers
         // GET: Incomes/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null)
+            if (IsLoggedIn())
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                Income income = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
+                IncomesDeleteVm expenseDelete = new IncomesDeleteVm
+                {
+                    Id = income.Id,
+
+                    Name = income.Name,
+                    Amount = income.Amount,
+                    WorkHours = income.WorkHours,
+                    Variable = income.Variable,
+                };
+
+                return View(expenseDelete);
             }
 
-            Income income = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-            IncomesDeleteVm expenseDelete = new IncomesDeleteVm
-            {
-                Id = income.Id,
+            return RedirectToAction("Login", "User");
 
-                Name = income.Name,
-                Amount = income.Amount,
-                WorkHours = income.WorkHours,
-                Variable = income.Variable,
-            };
-
-            return View(expenseDelete);
+            
         }
 
         // POST: Incomes/Delete/5
