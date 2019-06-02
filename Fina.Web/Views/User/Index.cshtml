@@ -1,7 +1,7 @@
 ﻿@model Fina.Web.Models.DetailsVm;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.user.FirstName;
 }
 
 <br>
@@ -13,7 +13,7 @@
                 <img class="card-profile-stats-intro-pic" src="https://pbs.twimg.com/profile_images/732634911761260544/OxHbNdTF.jpg" alt="profile-image" />
                 <div class="card-profile-stats-intro-content">
                     <h3 class="">@Model.user.FirstName @Model.user.Name</h3>
-                    <p class="text-center"><a class="fas fa-crown"></a> Premium User <a class="fas fa-crown"></a></p>
+                    <p class="text-center">Month: @DateTime.Now.ToString("MMMM") @DateTime.Now.ToString("yyyy")</p>
                 </div>
             </div>
 
@@ -52,24 +52,24 @@
         <div class="col-lg-1"></div>
 
         <div class="card-profile-stats col-lg-4 text-center">
-            <h3>ADD DATA</h3>
+            <h3>Add</h3>
             <br />
             <div class="button-group-option">
                 <a asp-controller="Expense" asp-action="Add" class="button alert expanded">Add Expense</a>
                 <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Expenses</a>
                 <hr />
-                <a asp-controller="Expense" asp-action="Add" class="button success expanded">Add Income</a>
-                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Incomes</a>
+                <a asp-controller="Incomes" asp-action="Add" class="button success expanded">Add Income</a>
+                <a asp-controller="Incomes" asp-action="Index" class="button primary expanded">View Incomes</a>
             </div>
             <br />
             <hr />
             <br />
             <div class="button-group-option">
-                <a asp-controller="Expense" asp-action="Add" class="button warning expanded">Add Saving</a>
-                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Savings</a>
+                <a asp-controller="Savings" asp-action="Add" class="button warning expanded">Add Saving</a>
+                <a asp-controller="Savings" asp-action="Index" class="button primary expanded">View Savings</a>
                 <hr />
-                <a asp-controller="Expense" asp-action="Add" class="button warning expanded">Add Security</a>
-                <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Securities</a>
+                <a asp-controller="Security" asp-action="Add" class="button warning expanded">Add Security</a>
+                <a asp-controller="Security" asp-action="Index" class="button primary expanded">View Securities</a>
             </div>
         </div>
     </div>

@@ -154,12 +154,9 @@ namespace Fina.Web.Controllers
 
                     userSession.Id = user.Id;
                     userSession.FName = user.FirstName;
-
-                    //string userData = JsonConvert.SerializeObject(userSession);
+                    
                     string json = JsonConvert.SerializeObject(userSession);
-
-
-                    //int newId = Convert.ToInt32(user.Id);
+                    
 
                     HttpContext.Session.SetString("User", json);
 

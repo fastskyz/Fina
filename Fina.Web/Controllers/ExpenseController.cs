@@ -99,7 +99,10 @@ namespace Fina.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fk = await _context.tbl_users.Where(u => u.Id == 1).FirstOrDefaultAsync();
+                string data = HttpContext.Session.GetString("User");
+                UserSessionModel userSession = JsonConvert.DeserializeObject<UserSessionModel>(data);
+
+                var fk = await _context.tbl_users.Where(u => u.Id == userSession.Id).FirstOrDefaultAsync();
 
                 Expense newExpense = new Expense {
                     FK = fk,
