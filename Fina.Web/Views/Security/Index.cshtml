@@ -1,11 +1,11 @@
-﻿@model Fina.Web.Models.SavingsOverviewVm
+﻿@model Fina.Web.Models.SecuritiesOverviewVm
 @{
     ViewData["Title"] = "Details";
 }
 
 <br />
 
-<h2 class="text-center overview-title">Savings</h2>
+<h2 class="text-center overview-title">Securities</h2>
 
 <br />
 
@@ -14,13 +14,13 @@
 
     <ul class="stats-list">
         <li class="stats-list-positive">
-            @Model.Monthly <span class="stats-list-label">Saving Monthly</span>
+            @Model.Monthly <span class="stats-list-label">Security Monthly</span>
         </li>
         <li>
             @Model.Total <span class="stats-list-label">Total Saved</span>
         </li>
         <li class="stats-list-negative">
-            @Model.nSavings <span class="stats-list-label">Savings Running</span>
+            @Model.nSecurities <span class="stats-list-label">Securities Running</span>
         </li>
     </ul>
 
@@ -29,14 +29,14 @@
             <tr class="table-expand-row">
                 <th width="400">Name</th>
                 <th width="200">Saved</th>
-                <th>Saving/Month</th>
+                <th>Security/Month</th>
                 <th>Type</th>
                 <th>Longterm</th>
                 <th width="100"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var inc in Model.Savings)
+            @foreach (var inc in Model.Securities)
             {
             <tr class="table-expand-row" data-open-details>
                 <td>@inc.Name</td>

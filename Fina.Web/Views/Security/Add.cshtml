@@ -1,13 +1,13 @@
-﻿@model Fina.Web.Models.SavingsAddVm
+﻿@model Fina.Web.Models.SecurityAddVm
 
 @{
 
-    ViewData["Title"] = "Add Saving";
+    ViewData["Title"] = "Add Security";
 
 }
 
 <br />
-<h2 class="text-center overview-title">Add Saving</h2>
+<h2 class="text-center overview-title">Add Security</h2>
 
 <div class="simple-center-block">
     <br />
@@ -27,7 +27,7 @@
                     <div class="input-group">
                         <label asp-for="Type" class="input-group-label"><i class="fa fa-sitemap"></i></label>
                         <select asp-for="Type" class="input-group-field">
-                            @foreach (string type in Model.savingsType)
+                            @foreach (string type in Model.securitiesType)
                             {
                                 <option value="@type">@type</option>
                             }

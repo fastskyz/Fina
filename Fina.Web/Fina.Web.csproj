@@ -23,6 +23,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Security\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Security\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Security\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Security\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Savings\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

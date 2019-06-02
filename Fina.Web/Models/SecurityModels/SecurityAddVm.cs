@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class SavingsAddVm
+    public class SecurityAddVm
     {
         [Required]
         public bool Longterm { get; set; }

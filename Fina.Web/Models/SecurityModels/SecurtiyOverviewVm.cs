@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class SavingsOverviewVm
+    public class SecuritiesOverviewVm
     {
-        public IEnumerable<Saving> Savings { get; set; }
+        public IEnumerable<Security> Securities { get; set; }
 
         public decimal Total { get; set; }
         public decimal Monthly { get; set; }
-        public int nSavings { get; set; }
+        public int nSecurities { get; set; }
     }
 }

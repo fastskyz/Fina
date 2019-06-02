@@ -16,14 +16,14 @@ using Fina.Web.Models.UserModels;
 
 namespace Fina.Web.Controllers
 {
-    public class SavingsController : Controller
+    public class SecuritiesController : Controller
     {
         private readonly FinaContext _context;
 
 
 
 
-        public SavingsController(FinaContext context)
+        public SecuritiesController(FinaContext context)
         {
             _context = context;
         }
@@ -51,7 +51,7 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Savings
+        // GET: Securities
         public async Task<IActionResult> Index()
         {
             if (IsLoggedIn())
@@ -64,25 +64,25 @@ namespace Fina.Web.Controllers
                 decimal TotalSaved = 0;
                 decimal MonthlySaved = 0;
 
-                SavingsOverviewVm savingsOverviewVm = new SavingsOverviewVm();
-                savingsOverviewVm.Savings = _context.Entry(user).Collection(u => u.Savings).Query().AsEnumerable();
-                savingsOverviewVm.nSavings = savingsOverviewVm.Savings.Count();
+                SecuritiesOverviewVm securitiesOverviewVm = new SecuritiesOverviewVm();
+                securitiesOverviewVm.Securities = _context.Entry(user).Collection(u => u.Securities).Query().AsEnumerable();
+                securitiesOverviewVm.nSecurities = securitiesOverviewVm.Securities.Count();
 
-                foreach ( var sav in savingsOverviewVm.Savings )
+                foreach ( var sec in securitiesOverviewVm.Securities )
                 {
-                    TotalSaved += sav.Amount;
+                    TotalSaved += sec.Amount;
                 }
 
-                savingsOverviewVm.Total = TotalSaved;
+                securitiesOverviewVm.Total = TotalSaved;
 
-                foreach (var sav in savingsOverviewVm.Savings)
+                foreach (var sec in securitiesOverviewVm.Securities)
                 {
-                    TotalSaved += sav.Monthly;
+                    TotalSaved += sec.Monthly;
                 }
 
-                savingsOverviewVm.Monthly = MonthlySaved;
+                securitiesOverviewVm.Monthly = MonthlySaved;
 
-                return View(savingsOverviewVm);
+                return View(securitiesOverviewVm);
             }
 
             return RedirectToAction("Login", "User");
@@ -98,24 +98,24 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Savings/Add
+        // GET: Securities/Add
         public IActionResult Add()
         {
             if (IsLoggedIn())
             {
-                SavingsAddVm savingsAddVm = new SavingsAddVm();
+                SecurityAddVm securitiesAddVm = new SecurityAddVm();
 
-                return View(savingsAddVm);
+                return View(securitiesAddVm);
             }
 
             return RedirectToAction("Login", "User");
         }
 
-        // POST: Savings/Add
+        // POST: Securities/Add
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SavingsAddVm savingVm)
+        public async Task<IActionResult> Add([Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
         {
             if (ModelState.IsValid)
             {
@@ -124,24 +124,24 @@ namespace Fina.Web.Controllers
 
                 var fk = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
-                Saving newSavings = new Saving {
+                Security newSecurities = new Security {
                     FK = fk,
 
-                    Name = savingVm.Name,
-                    Longterm = savingVm.Longterm,
-                    Monthly = savingVm.Monthly,
-                    Type = savingVm.Type,
+                    Name = securityVm.Name,
+                    Longterm = securityVm.Longterm,
+                    Monthly = securityVm.Monthly,
+                    Type = securityVm.Type,
 
-                    Description = savingVm.Description,
-                    AccountNumber = savingVm.AccountNumber,
-                    StartDate = savingVm.StartDate
+                    Description = securityVm.Description,
+                    AccountNumber = securityVm.AccountNumber,
+                    StartDate = securityVm.StartDate
                 };
 
-                _context.Add(newSavings);
+                _context.Add(newSecurities);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(savingVm);
+            return View(securityVm);
         }
 
 
@@ -157,58 +157,58 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Savings/Edit/5
+        // GET: Securities/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (IsLoggedIn())
             {
-                Saving currentSavings = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
-                SavingsAddVm savingAddVm = new SavingsAddVm
+                Security currentSecurities = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
+                SecurityAddVm securityAddVm = new SecurityAddVm
                 {
-                    Name = currentSavings.Name,
-                    Longterm = currentSavings.Longterm,
-                    Monthly = currentSavings.Monthly,
-                    Type = currentSavings.Type,
+                    Name = currentSecurities.Name,
+                    Longterm = currentSecurities.Longterm,
+                    Monthly = currentSecurities.Monthly,
+                    Type = currentSecurities.Type,
 
-                    Description = currentSavings.Description,
-                    AccountNumber = currentSavings.AccountNumber,
-                    StartDate = currentSavings.StartDate
+                    Description = currentSecurities.Description,
+                    AccountNumber = currentSecurities.AccountNumber,
+                    StartDate = currentSecurities.StartDate
                 };
 
-                return View(savingAddVm);
+                return View(securityAddVm);
             }
 
             return RedirectToAction("Login", "User");
             
         }
 
-        // POST: Savings/Edit/5
+        // POST: Securities/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SavingsAddVm savingVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SecurityAddVm securityVm)
         {
             if (ModelState.IsValid)
             {
-                Saving updatedSaving = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
+                Security updatedSecurity = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
 
                 // Copy over properties
-                updatedSaving.Name = savingVm.Name;
-                updatedSaving.Monthly = savingVm.Monthly;
-                updatedSaving.Longterm = savingVm.Longterm;
-                updatedSaving.Type = savingVm.Type;
+                updatedSecurity.Name = securityVm.Name;
+                updatedSecurity.Monthly = securityVm.Monthly;
+                updatedSecurity.Longterm = securityVm.Longterm;
+                updatedSecurity.Type = securityVm.Type;
 
-                updatedSaving.Description = savingVm.Description;
-                updatedSaving.AccountNumber = savingVm.AccountNumber;
-                updatedSaving.StartDate = savingVm.StartDate;
+                updatedSecurity.Description = securityVm.Description;
+                updatedSecurity.AccountNumber = securityVm.AccountNumber;
+                updatedSecurity.StartDate = securityVm.StartDate;
 
                 try
                 {
-                    _context.Update(updatedSaving);
+                    _context.Update(updatedSecurity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SavingsExists(updatedSaving.Id))
+                    if (!SecuritiesExists(updatedSecurity.Id))
                     {
                         return NotFound();
                     }
@@ -220,7 +220,7 @@ namespace Fina.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(savingVm);
+            return View(securityVm);
             
         }
 
@@ -240,7 +240,7 @@ namespace Fina.Web.Controllers
 
 
 
-        // GET: Savings/Delete/5
+        // GET: Securities/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (IsLoggedIn())
@@ -250,19 +250,19 @@ namespace Fina.Web.Controllers
                     return NotFound();
                 }
 
-                Saving saving = await _context.tbl_savings.Where(e => e.Id == id).FirstAsync();
-                SavingsDeleteVm savingDelete = new SavingsDeleteVm
+                Security security = await _context.tbl_securities.Where(e => e.Id == id).FirstAsync();
+                SecuritiesDeleteVm securityDelete = new SecuritiesDeleteVm
                 {
-                    Id = saving.Id,
+                    Id = security.Id,
 
-                    Name = saving.Name,
-                    Amount = saving.Amount,
-                    Monthly = saving.Monthly,
-                    Longterm = saving.Longterm,
-                    Type = saving.Type,
+                    Name = security.Name,
+                    Amount = security.Amount,
+                    Monthly = security.Monthly,
+                    Longterm = security.Longterm,
+                    Type = security.Type,
                 };
 
-                return View(savingDelete);
+                return View(securityDelete);
             }
 
             return RedirectToAction("Login", "User");
@@ -270,20 +270,20 @@ namespace Fina.Web.Controllers
             
         }
 
-        // POST: Savings/Delete/5
+        // POST: Securities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var saving = await _context.tbl_savings.FindAsync(id);
-            _context.tbl_savings.Remove(saving);
+            var security = await _context.tbl_securities.FindAsync(id);
+            _context.tbl_securities.Remove(security);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SavingsExists(long id)
+        private bool SecuritiesExists(long id)
         {
-            return _context.tbl_savings.Any(e => e.Id == id);
+            return _context.tbl_securities.Any(e => e.Id == id);
         }
     }
 }

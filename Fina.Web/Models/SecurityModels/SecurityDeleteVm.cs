@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fina.Web.Models
 {
-    public class SavingsDeleteVm
+    public class SecuritiesDeleteVm
     {
         public long Id { get; set; }
         
@@ -15,6 +15,6 @@ namespace Fina.Web.Models
         public bool Longterm { get; set; }
         public decimal Monthly { get; set; }
         public string Name { get; set; }
-        public Saving.savingsType Type { get; set; }
+        public Security.securitiesType Type { get; set; }
     }
 }
