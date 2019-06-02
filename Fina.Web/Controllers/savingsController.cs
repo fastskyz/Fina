@@ -134,7 +134,7 @@ namespace Fina.Web.Controllers
 
                     Description = savingVm.Description,
                     AccountNumber = savingVm.AccountNumber,
-                    StartDate = savingVm.StartDate
+                    StartDate = DateTime.Parse(savingVm.StartDate)
                 };
 
                 _context.Add(newSavings);
@@ -172,7 +172,7 @@ namespace Fina.Web.Controllers
 
                     Description = currentSavings.Description,
                     AccountNumber = currentSavings.AccountNumber,
-                    StartDate = currentSavings.StartDate
+                    StartDate = currentSavings.StartDate.ToString("dd/MM/yyyy")
                 };
 
                 return View(savingAddVm);
@@ -199,7 +199,7 @@ namespace Fina.Web.Controllers
 
                 updatedSaving.Description = savingVm.Description;
                 updatedSaving.AccountNumber = savingVm.AccountNumber;
-                updatedSaving.StartDate = savingVm.StartDate;
+                updatedSaving.StartDate = DateTime.Parse(savingVm.StartDate);
 
                 try
                 {
