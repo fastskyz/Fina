@@ -10,14 +10,11 @@ namespace Fina.Web.Models
     public class SavingsDeleteVm
     {
         public long Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-        [Required]
+        
         public decimal Amount { get; set; }
-        [Required]
-        public bool Variable { get; set; }
-        [Required]
-        public int WorkHours { get; set; }
+        public bool Longterm { get; set; }
+        public decimal Monthly { get; set; }
+        public string Name { get; set; }
+        public Saving.savingsType Type { get; set; }
     }
 }

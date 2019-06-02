@@ -115,7 +115,7 @@ namespace Fina.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] SavingsAddVm savingVm)
+        public async Task<IActionResult> Add([Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SavingsAddVm savingVm)
         {
             if (ModelState.IsValid)
             {
@@ -128,12 +128,12 @@ namespace Fina.Web.Controllers
                     FK = fk,
 
                     Name = savingVm.Name,
-                    Amount = savingVm.Amount,
-                    WorkHours = savingVm.WorkHours,
-                    Variable = savingVm.Variable,
+                    Longterm = savingVm.Longterm,
+                    Monthly = savingVm.Monthly,
+                    Type = savingVm.Type,
 
-                    Function = savingVm.Function,
-                    Company = savingVm.Company,
+                    Description = savingVm.Description,
+                    AccountNumber = savingVm.AccountNumber,
                     StartDate = savingVm.StartDate
                 };
 
@@ -166,12 +166,12 @@ namespace Fina.Web.Controllers
                 SavingsAddVm savingAddVm = new SavingsAddVm
                 {
                     Name = currentSavings.Name,
-                    Amount = currentSavings.Amount,
-                    WorkHours = currentSavings.WorkHours,
-                    Variable = currentSavings.Variable,
+                    Longterm = currentSavings.Longterm,
+                    Monthly = currentSavings.Monthly,
+                    Type = currentSavings.Type,
 
-                    Function = currentSavings.Function,
-                    Company = currentSavings.Company,
+                    Description = currentSavings.Description,
+                    AccountNumber = currentSavings.AccountNumber,
                     StartDate = currentSavings.StartDate
                 };
 
@@ -185,7 +185,7 @@ namespace Fina.Web.Controllers
         // POST: Savings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] SavingsAddVm savingVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Longterm,Monthly,Type,Description,AccountNumber,StartDate")] SavingsAddVm savingVm)
         {
             if (ModelState.IsValid)
             {
@@ -193,12 +193,12 @@ namespace Fina.Web.Controllers
 
                 // Copy over properties
                 updatedSaving.Name = savingVm.Name;
-                updatedSaving.Variable = savingVm.Variable;
-                updatedSaving.Amount = savingVm.Amount;
-                updatedSaving.WorkHours = savingVm.WorkHours;
+                updatedSaving.Monthly = savingVm.Monthly;
+                updatedSaving.Longterm = savingVm.Longterm;
+                updatedSaving.Type = savingVm.Type;
 
-                updatedSaving.Function = savingVm.Function;
-                updatedSaving.Company = savingVm.Company;
+                updatedSaving.Description = savingVm.Description;
+                updatedSaving.AccountNumber = savingVm.AccountNumber;
                 updatedSaving.StartDate = savingVm.StartDate;
 
                 try
@@ -257,8 +257,9 @@ namespace Fina.Web.Controllers
 
                     Name = saving.Name,
                     Amount = saving.Amount,
-                    WorkHours = saving.WorkHours,
-                    Variable = saving.Variable,
+                    Monthly = saving.Monthly,
+                    Longterm = saving.Longterm,
+                    Type = saving.Type,
                 };
 
                 return View(savingDelete);

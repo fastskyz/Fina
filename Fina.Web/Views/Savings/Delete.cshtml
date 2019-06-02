@@ -1,4 +1,4 @@
-﻿@model Fina.Web.Models.IncomesDeleteVm
+﻿@model Fina.Web.Models.SavingsDeleteVm
 
 @{
     ViewData["Title"] = "Delete";
@@ -18,16 +18,18 @@
             <thead>
                 <tr class="table-expand-row">
                     <th width="400">Name</th>
-                    <th width="200">Work Hours</th>
-                    <th>Variable</th>
+                    <th width="200">Saving Monthly</th>
+                    <th>Longterm</th>
+                    <th>Type</th>
                     <th class="text-right" width="150">Amount</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="table-expand-row" data-open-details>
                     <td>@Model.Name</td>
-                    <td>@Model.WorkHours</td>
-                    <td>@Model.Variable.ToString()</td>
+                    <td>@Model.Monthly</td>
+                    <td>@Model.Longterm.ToString()</td>
+                    <td>@Model.Type.ToString()</td>
                     <td class="text-right">€@Model.Amount</td>
                 </tr>
             </tbody>
