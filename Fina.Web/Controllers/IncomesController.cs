@@ -61,11 +61,18 @@ namespace Fina.Web.Controllers
 
                 var user = await _context.tbl_users.FirstOrDefaultAsync(u => u.Id == userSession.Id);
 
+                int WorkHoursTotal = 0;
 
                 IncomesOverviewVm incomesOverviewVm = new IncomesOverviewVm();
                 incomesOverviewVm.Incomes = _context.Entry(user).Collection(u => u.Incomes).Query().AsEnumerable();
                 incomesOverviewVm.Total = incomesOverviewVm.Incomes.Count();
-                incomesOverviewVm.WorkHours = incomesOverviewVm.WorkHours;
+
+                foreach ( var inc in incomesOverviewVm.Incomes )
+                {
+                    WorkHoursTotal += inc.WorkHours;
+                }
+
+                incomesOverviewVm.WorkHours = WorkHoursTotal;
                 incomesOverviewVm.Variable = incomesOverviewVm.Incomes.Where(e => e.Variable).Count();
 
                 return View(incomesOverviewVm);
