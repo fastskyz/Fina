@@ -602,6 +602,9 @@ a:hover, a:focus, a:active {
 .text-secondary {
   color: #ecb807 !important; }
 
+.temp-message {
+  margin: 35px 100px; }
+
 .sign-in-form {
   padding: 1rem 1.5em;
   border-radius: .5rem;

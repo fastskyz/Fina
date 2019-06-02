@@ -168,6 +168,10 @@ namespace Fina.Web.Controllers
                 }
             }
 
+
+            TempData["Message"] = "Login Failed, please try again.";
+            TempData["MessageType"] = "warning";
+
             return View();
         }
 
@@ -203,9 +207,16 @@ namespace Fina.Web.Controllers
             {
                 _context.Add(user);
 
+                TempData["Message"] = "Account created, you can now login.";
+                TempData["MessageType"] = "success";
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Login));
             }
+
+            TempData["Message"] = "Register Failed, please try again.";
+            TempData["MessageType"] = "alert";
+
             return View(user);
         }
 
