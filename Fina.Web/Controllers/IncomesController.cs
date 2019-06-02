@@ -79,9 +79,9 @@ namespace Fina.Web.Controllers
         {
             if (IsLoggedIn())
             {
-                IncomesAddVm expenseAddVm = new IncomesAddVm();
+                IncomesAddVm incomesAddVm = new IncomesAddVm();
 
-                return View(expenseAddVm);
+                return View(incomesAddVm);
             }
 
             return RedirectToAction("Login", "User");
@@ -94,7 +94,7 @@ namespace Fina.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm incomeVm)
+        public async Task<IActionResult> Add([Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] IncomesAddVm incomeVm)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +131,7 @@ namespace Fina.Web.Controllers
             if (IsLoggedIn())
             {
                 Income currentIncomes = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-                IncomesAddVm expenseAddVm = new IncomesAddVm
+                IncomesAddVm incomeAddVm = new IncomesAddVm
                 {
                     Name = currentIncomes.Name,
                     Amount = currentIncomes.Amount,
@@ -143,7 +143,7 @@ namespace Fina.Web.Controllers
                     StartDate = currentIncomes.StartDate
                 };
 
-                return View(expenseAddVm);
+                return View(incomeAddVm);
             }
 
             return RedirectToAction("Login", "User");
@@ -155,7 +155,7 @@ namespace Fina.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Life,Type,Variable,Cost,AccountNumber,Creditor,expenseTypes")] IncomesAddVm incomeVm)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Amount,Variable,Amount,WorkHours,Function,Company,StartDate")] IncomesAddVm incomeVm)
         {
             if (ModelState.IsValid)
             {
@@ -205,7 +205,7 @@ namespace Fina.Web.Controllers
                 }
 
                 Income income = await _context.tbl_incomes.Where(e => e.Id == id).FirstAsync();
-                IncomesDeleteVm expenseDelete = new IncomesDeleteVm
+                IncomesDeleteVm incomeDelete = new IncomesDeleteVm
                 {
                     Id = income.Id,
 
@@ -215,7 +215,7 @@ namespace Fina.Web.Controllers
                     Variable = income.Variable,
                 };
 
-                return View(expenseDelete);
+                return View(incomeDelete);
             }
 
             return RedirectToAction("Login", "User");
@@ -228,8 +228,8 @@ namespace Fina.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _context.tbl_incomes.FindAsync(id);
-            _context.tbl_incomes.Remove(expense);
+            var income = await _context.tbl_incomes.FindAsync(id);
+            _context.tbl_incomes.Remove(income);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

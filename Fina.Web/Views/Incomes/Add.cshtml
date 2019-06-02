@@ -1,13 +1,13 @@
-﻿@model Fina.Web.Models.ExpenseAddVm
+﻿@model Fina.Web.Models.IncomesAddVm
 
 @{
 
-    ViewData["Title"] = "Add Expense";
+    ViewData["Title"] = "Add Income";
 
 }
 
 <br />
-<h2 class="text-center overview-title">Add Expense</h2>
+<h2 class="text-center overview-title">Add Income</h2>
 
 <div class="simple-center-block">
     <br />
@@ -20,60 +20,55 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="input-group">
                         <label asp-for="Name" class="input-group-label"><i class="fa fa-signature"></i></label>
-                        <input asp-for="Name" class="input-group-field" placeholder="Title" />
+                        <input asp-for="Name" class="input-group-field" placeholder="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
-                    <div class="input-group">
-                        <label asp-for="Type" class="input-group-label"><i class="fa fa-sitemap"></i></label>
-                        <select asp-for="Type" class="input-group-field">
-                            @foreach (string type in Model.expenseTypes)
-                            {
-                                <option value="@type">@type</option>
-                            }
-                        </select>
-                        <span asp-validation-for="Type" class="text-danger"></span>
-                    </div>
+
 
                     <div class="row">
                         <div class="input-group col-md-6">
-                            <label asp-for="Cost" class="input-group-label"><i class="fa fa-coins"></i></label>
-                            <input asp-for="Cost" class="input-group-field" placeholder="Title" />
-                            <span asp-validation-for="Cost" class="text-danger"></span>
+                            <label asp-for="WorkHours" class="input-group-label"><i class="fa fa-clock"></i></label>
+                            <input asp-for="WorkHours" class="input-group-field" />
+                            <span asp-validation-for="WorkHours" class="text-danger"></span>
                         </div>
-
                         <div class="input-group col-md-6">
-                            <label asp-for="Creditor" class="input-group-label"><i class="fa fa-user"></i></label>
-                            <input asp-for="Creditor" class="input-group-field" placeholder="Creditor" />
-                            <span asp-validation-for="Creditor" class="text-danger"></span>
+                            <label asp-for="Amount" class="input-group-label"><i class="fa fa-coins"></i></label>
+                            <input asp-for="Amount" class="input-group-field" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label asp-for="AccountNumber" class="input-group-label"><i class="fa fa-university"></i></label>
-                        <input asp-for="AccountNumber" class="input-group-field" placeholder="Account Number" />
-                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                        <label asp-for="Function" class="input-group-label"><i class="fa fa-user"></i></label>
+                        <input asp-for="Function" class="input-group-field" placeholder="Function" />
+                        <span asp-validation-for="Function" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label asp-for="Company" class="input-group-label"><i class="fa fa-university"></i></label>
+                        <input asp-for="Company" class="input-group-field" placeholder="Company" />
+                        <span asp-validation-for="Company" class="text-danger"></span>
                     </div>
 
                     <br />
 
                     <div class="row">
-                        <div class="col-sm-2"></div>
-                        <div class="input-group col-sm-4">
+                        <div class="col-sm-1"></div>
+
+                        <div class="input-group col-sm-3">
                             <div class="checkbox">
                                 <label>
                                     <input asp-for="Variable" /> VARIABLE
                                 </label>
                             </div>
                         </div>
-                        <div class="input-group col-sm-4">
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="Life" /> LIFE
-                                </label>
-                            </div>
+                        <div class="col-sm-1"></div>
+
+                        <div class="input-group col-sm-6">
+                            <input asp-for="StartDate" type="date" value="6/01/2019" name="Date" />
                         </div>
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-1"></div>
                     </div>
 
                     <br />
