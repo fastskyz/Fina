@@ -58,12 +58,10 @@
                 <a asp-controller="Expense" asp-action="Add" class="button alert expanded">Add Expense</a>
                 <a asp-controller="Expense" asp-action="Index" class="button primary expanded">View Expenses</a>
                 <hr />
-                <a asp-controller="Incomes" asp-action="Add" class="button success expanded">Add Income</a>
+                <a asp-controller="Incomes" asp-action="Add" class="button alert expanded">Add Income</a>
                 <a asp-controller="Incomes" asp-action="Index" class="button primary expanded">View Incomes</a>
             </div>
-            <br />
             <hr />
-            <br />
             <div class="button-group-option">
                 <a asp-controller="Savings" asp-action="Add" class="button warning expanded">Add Saving</a>
                 <a asp-controller="Savings" asp-action="Index" class="button primary expanded">View Savings</a>
@@ -71,6 +69,9 @@
                 <a asp-controller="Security" asp-action="Add" class="button warning expanded">Add Security</a>
                 <a asp-controller="Security" asp-action="Index" class="button primary expanded">View Securities</a>
             </div>
+            <hr />
+            <a asp-controller="User" asp-action="Logout" class="button success expanded">Logout</a>
+
         </div>
     </div>
 

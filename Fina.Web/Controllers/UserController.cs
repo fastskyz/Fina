@@ -13,9 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Fina.Lib.Database;
 using Fina.Web.Models;
 using Fina.Web.Models.UserModels;
-
-
-
+using System.Text;
 
 namespace Fina.Web.Controllers
 {
@@ -90,7 +88,23 @@ namespace Fina.Web.Controllers
             return false;
         }
 
+        public static string GenerateSHA256String(string inputString)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(inputString);
+            byte[] hash = sha256.ComputeHash(bytes);
+            return GetStringFromHash(hash);
+        }
 
+        private static string GetStringFromHash(byte[] hash)
+        {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                result.Append(hash[i].ToString("X2"));
+            }
+            return result.ToString();
+        }
 
 
 
@@ -130,7 +144,15 @@ namespace Fina.Web.Controllers
 
 
 
-
+        // GET: User
+        public async Task<IActionResult> Logout()
+        {
+            if (IsLoggedIn())
+            {
+                HttpContext.Session.Remove("User");
+            }
+            return RedirectToAction(nameof(Login));
+        }
 
 
 
@@ -159,7 +181,7 @@ namespace Fina.Web.Controllers
 
             if ( user != null )
             {
-                if ( user.Password == SHA256.Create(details.Password).ToString() )
+                if ( user.Password == GenerateSHA256String(details.Password) )
                 {
                     UserSessionModel userSession = new UserSessionModel();
 
@@ -216,7 +238,8 @@ namespace Fina.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                user.Password = SHA256.Create(user.Password).ToString();
+
+                user.Password = GenerateSHA256String(user.Password);
 
                 _context.Add(user);
 
@@ -283,9 +306,9 @@ namespace Fina.Web.Controllers
             // Data Seeding //
             // users
             _context.AddRange(
-                new User { Name = "De Langhe", FirstName = "Seppe", Email = "seppedelanghe17@gmail.com", Country =  Lib.Database.User.Countries.Belgium, Password = SHA256.Create("delanghe").ToString(), Age = 18, Currency = Lib.Database.User.Currencies.Euro, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 },
-                new User { Name = "Hunter", FirstName = "Troy", Email = "troy.hunter41@example.com", Country = Lib.Database.User.Countries.USA, Password = SHA256.Create("milano").ToString(), Age = 37, Currency = Lib.Database.User.Currencies.Dollar, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 },
-                new User { Name = "Duncan", FirstName = "Kristina", Email = "kristinaduncan@example.com", Country = Lib.Database.User.Countries.Engeland, Password = SHA256.Create("tiao").ToString(), Age = 32, Currency = Lib.Database.User.Currencies.Pounds, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 }
+                new User { Name = "De Langhe", FirstName = "Seppe", Email = "seppedelanghe17@gmail.com", Country =  Lib.Database.User.Countries.Belgium, Password = GenerateSHA256String("delanghe"), Age = 18, Currency = Lib.Database.User.Currencies.Euro, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 },
+                new User { Name = "Hunter", FirstName = "Troy", Email = "troy.hunter41@example.com", Country = Lib.Database.User.Countries.USA, Password = GenerateSHA256String("milano"), Age = 37, Currency = Lib.Database.User.Currencies.Dollar, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 },
+                new User { Name = "Duncan", FirstName = "Kristina", Email = "kristinaduncan@example.com", Country = Lib.Database.User.Countries.Engeland, Password = GenerateSHA256String("tiao"), Age = 32, Currency = Lib.Database.User.Currencies.Pounds, Total = 0, LifeFunds = 0, Positive = 0, Negative = 0 }
                 );
 
             await _context.SaveChangesAsync();
